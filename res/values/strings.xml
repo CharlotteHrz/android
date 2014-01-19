@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">LEDoPiano</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="welcome">Welcome!</string>
+    <string name="actMain_but1">Analyser un morceau</string>
+    <string name="actMain_but2">Rentrer une grille d\'accord</string>
+    <string name="actMain_but3">Afficher une gamme</string>
+    <string name="actMain_but4">Lecture seule</string>
+    <string name="actMain_bluetooth">Bluetooth</string>
+    <string name="actMain_quit">Quit</string>
+    <string name="ok">OK</string>
+    <string name="biblio">Appel à la bibliothèque de musique du smartphone</string>
+    <string name="biblio2">Continuer</string>
+
+</resources>
