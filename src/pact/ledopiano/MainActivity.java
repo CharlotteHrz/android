@@ -15,7 +15,6 @@ public class MainActivity extends Activity implements View.OnClickListener, OnCl
 	private Button choix;
 	private Button grille;
 	private Button gamme;
-	private Button lecture;
 	private CheckBox bluetooth;
 	private Button quit;
 
@@ -30,8 +29,6 @@ public class MainActivity extends Activity implements View.OnClickListener, OnCl
 		grille.setOnClickListener(this);
 		gamme = (Button) findViewById(R.id.button3);
 		gamme.setOnClickListener(this);
-		lecture = (Button) findViewById(R.id.button4);
-		lecture.setOnClickListener(this);
 		bluetooth = (CheckBox) findViewById(R.id.checkBox1);
 		bluetooth.setOnClickListener(this);
 		quit = (Button) findViewById(R.id.button5);
@@ -42,23 +39,23 @@ public class MainActivity extends Activity implements View.OnClickListener, OnCl
 	public void onClick(View v) {
 		switch(v.getId()){
 		case R.id.button1:
-			//appel à la bibliothèque du smartphone
-			Intent intent = new Intent(this, Bibliotheque.class);
+			//ouverture d'une nouvelle activité
+			Intent intent = new Intent(this, Choix.class);
 			startActivity(intent);
 			break;
 		case R.id.button2:
-			//pas fait
-			break;
-		case R.id.button3:
-			//pas fait
-			break;
-		case R.id.button4:
-			//appel à la bibliothèque du smartphone
-			Intent intent2 = new Intent(this, Bibliotheque.class);
+			//passage direct à la fenêtre montrant la grille d'accord
+			Intent intent2 = new Intent(this, Grille.class);
 			startActivity(intent2);
 			break;
+		case R.id.button3:
+			//pour demander au beandeau d'afficher une gamme
+			Intent intent3 = new Intent(this, Gamme.class);
+			startActivity(intent3);
+			break;
 		case R.id.checkBox1:
-			//Ceci ne marche pas encore...
+			//pour réactiver le bluetooth
+			//pas encore au point...
 			Builder dialog = new AlertDialog.Builder(getApplicationContext());
 			dialog.setMessage("Réactiver le bluetooth ?");
 			dialog.setNeutralButton("OK", this);

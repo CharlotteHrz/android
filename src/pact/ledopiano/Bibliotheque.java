@@ -1,7 +1,6 @@
 package pact.ledopiano;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.view.View;
@@ -15,12 +14,14 @@ public class Bibliotheque extends Activity implements View.OnClickListener {
 		
 		b = (Button) findViewById(R.id.button1);
 		b.setOnClickListener(this);
+		
+		//il faudra retenir le nom du morceau choisi:
+		//code à mettre dans onStop()
 	}
 
 	@Override
 	public void onClick(View arg0) {
-		Intent intent = new Intent(this, Bibliotheque.class);
-		startActivity(intent);
+		this.finish();
 		
 	}
 

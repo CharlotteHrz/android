@@ -24,20 +24,29 @@ public final class R {
         public static final int ic_launcher=0x7f020000;
     }
     public static final class id {
-        public static final int action_settings=0x7f080007;
+        public static final int action_settings=0x7f08000d;
         public static final int button1=0x7f080001;
         public static final int button2=0x7f080002;
         public static final int button3=0x7f080003;
-        public static final int button4=0x7f080004;
-        public static final int button5=0x7f080006;
-        public static final int checkBox1=0x7f080005;
+        public static final int button5=0x7f080005;
+        public static final int button6=0x7f080009;
+        public static final int button7=0x7f08000a;
+        public static final int button8=0x7f080007;
+        public static final int button9=0x7f08000b;
+        public static final int checkBox1=0x7f080004;
+        public static final int editText1=0x7f080006;
+        public static final int seekBar1=0x7f08000c;
         public static final int textView1=0x7f080000;
+        public static final int textView2=0x7f080008;
     }
     public static final class layout {
         public static final int activity_main=0x7f030000;
         public static final int bibliotheque=0x7f030001;
         public static final int bluetooth=0x7f030002;
-        public static final int lecture=0x7f030003;
+        public static final int choix=0x7f030003;
+        public static final int gamme=0x7f030004;
+        public static final int grille=0x7f030005;
+        public static final int lecture=0x7f030006;
     }
     public static final class menu {
         public static final int main=0x7f070000;
@@ -53,7 +62,21 @@ public final class R {
         public static final int app_name=0x7f050000;
         public static final int biblio=0x7f05000b;
         public static final int biblio2=0x7f05000c;
+        public static final int biblio_editText=0x7f05000d;
+        public static final int choix_but1=0x7f05000f;
+        public static final int choix_but2=0x7f050010;
+        public static final int choix_but3=0x7f050012;
+        public static final int choix_text=0x7f050011;
+        public static final int choix_title=0x7f05000e;
+        public static final int gamme_title=0x7f05001a;
+        public static final int grille_play=0x7f050014;
+        public static final int grille_text=0x7f050013;
         public static final int hello_world=0x7f050002;
+        public static final int lecture_name=0x7f050016;
+        public static final int lecture_play=0x7f050017;
+        public static final int lecture_retour=0x7f050019;
+        public static final int lecture_stop=0x7f050018;
+        public static final int lecture_title=0x7f050015;
         public static final int ok=0x7f05000a;
         public static final int welcome=0x7f050003;
     }

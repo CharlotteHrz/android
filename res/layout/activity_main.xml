@@ -43,13 +43,6 @@
         android:layout_below="@+id/button2"
         android:text="@string/actMain_but3" />
 
-    <Button
-        android:id="@+id/button4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/button3"
-        android:layout_centerHorizontal="true"
-        android:text="@string/actMain_but4" />
 
     <CheckBox
         android:id="@+id/checkBox1"

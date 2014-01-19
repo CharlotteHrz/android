@@ -5,14 +5,33 @@
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
     <string name="welcome">Welcome!</string>
-    <string name="actMain_but1">Analyser un morceau</string>
+    <string name="actMain_but1">Choisir un morceau</string>
     <string name="actMain_but2">Rentrer une grille d\'accord</string>
     <string name="actMain_but3">Afficher une gamme</string>
     <string name="actMain_but4">Lecture seule</string>
-    <string name="actMain_bluetooth">Bluetooth</string>
-    <string name="actMain_quit">Quit</string>
+    <string name="actMain_bluetooth">Connexion bandeau</string>
+    <string name="actMain_quit">Quitter</string>
     <string name="ok">OK</string>
+    
     <string name="biblio">Appel à la bibliothèque de musique du smartphone</string>
     <string name="biblio2">Continuer</string>
-
+    <string name="biblio_editText">Tapez le nom d\'un morceau</string>
+    
+    <string name="choix_title">Choix du morceau</string>
+    <string name="choix_but1">Base de données</string>
+    <string name="choix_but2">Bibliothèque</string>
+    <string name="choix_text">Morceau sélectionné</string>
+    <string name="choix_but3">C\'est parti !</string>
+    
+    <string name="grille_text">Cette fenetre doit servir a representer la grille d\'accord correspondant au morceau analyse.</string>
+    <string name="grille_play">Play</string>
+    
+    <string name="lecture_title">Lecture en cours</string>
+    <string name="lecture_name">Nom du morceau</string>
+    <string name="lecture_play">Play / Pause</string>
+    <string name="lecture_stop">Stop</string>
+    <string name="lecture_retour">Retour au menu principal</string>
+    
+    <string name="gamme_title">Choisir la gamme</string>
+    
 </resources>
