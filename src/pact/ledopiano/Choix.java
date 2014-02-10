@@ -1,7 +1,12 @@
 package pact.ledopiano;
 
+import java.util.List;
+
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -32,6 +37,16 @@ public class Choix extends Activity implements View.OnClickListener {
 		else{
 			Intent intent = new Intent(this, Bibliotheque.class);
 			startActivity(intent);
+			
+			Uri bibli = Uri.parse("Explorateur de fichiers");
+			Intent intentBibli = new Intent(Intent.ACTION_VIEW, bibli);
+			
+			PackageManager packageManager = getPackageManager();
+			List<ResolveInfo> activities = packageManager.queryIntentActivities(intentBibli, 0);
+			if (activities.size() > 0) {
+				startActivity(intentBibli);
+			}
+			
 		}
 	}
 	
