@@ -31,9 +31,10 @@ public class Choix extends Activity implements View.OnClickListener {
 	@Override
 	public void onClick(View v) {
 		if(v == findViewById(R.id.button8)){
-			Intent intent = new Intent(this, Grille.class);
-			startActivity(intent);
+			Intent intent = new Intent(this, Lecture.class);
+		    startActivity(intent);
 		}
+		
 		else{
 			Intent intent = new Intent(this, Bibliotheque.class);
 			startActivity(intent);
@@ -46,6 +47,14 @@ public class Choix extends Activity implements View.OnClickListener {
 			if (activities.size() > 0) {
 				startActivity(intentBibli);
 			}
+			
+			
+			//Ceci nous mène à un menu de sélection d'appli :)
+			Intent intent2 = new Intent(Intent.ACTION_PICK);
+		    intent2.getData();
+		    if (intent.resolveActivity(getPackageManager()) != null) {
+		        startActivityForResult(intent, 1);
+		    }
 			
 		}
 	}
