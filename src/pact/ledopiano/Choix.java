@@ -16,6 +16,7 @@ public class Choix extends Activity implements View.OnClickListener {
 	private int code_bibli = 1;
 	private int code_bdd = 2;
 	private TextView textView;
+	private Uri resultUri;
 	private String name;
 	
 	protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +37,8 @@ public class Choix extends Activity implements View.OnClickListener {
 	public void onClick(View v) {
 		if(v == findViewById(R.id.button8)){
 			Intent intent = new Intent(this, Lecture.class);
+			
+			intent.putExtra("morceau", resultUri);
 		    startActivity(intent);
 		    
 //passer l'URI du morceau
@@ -62,8 +65,7 @@ public class Choix extends Activity implements View.OnClickListener {
 	        // Make sure the request was successful
 	        if (resultCode == RESULT_OK) {
 	        	
-	            Uri resultUri = data.getData();
-	            name = resultUri.getUserInfo();
+	            resultUri = data.getData();
 	            textView.setText(resultUri.toString());
 	            
 	        }

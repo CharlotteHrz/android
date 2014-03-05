@@ -30,7 +30,8 @@
         android:layout_above="@+id/button8"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="46dp"
-        android:text="@string/choix_text" />
+        android:text="@string/choix_text"
+        android:textSize="12sp" />
 
     <Button
         android:id="@+id/button6"
