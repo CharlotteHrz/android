@@ -41,8 +41,10 @@ public class Choix extends Activity implements View.OnClickListener {
 		
 		
 		else{
-			Uri uri_music = MediaStore.Audio.Playlists.getContentUri("Music");
-			Intent intent = new Intent(Intent.ACTION_PICK, uri_music);
+			Uri uri_music = MediaStore.Audio.Playlists.getContentUri("LEDoPiano");
+			Intent intent = new Intent(Intent.ACTION_CHOOSER, uri_music);
+			//ACTION_PICK ou ACTION_CHOOSER
+			//voir la doc de ACTION_PICK
 			
 			if(v == findViewById(R.id.button7))
 				startActivityForResult(intent, code_bibli);
