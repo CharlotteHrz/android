@@ -1,7 +1,6 @@
 package pact.ledopiano;
 
 import android.app.Activity;
-import android.content.ContentUris;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -38,12 +37,13 @@ public class Choix extends Activity implements View.OnClickListener {
 		if(v == findViewById(R.id.button8)){
 			Intent intent = new Intent(this, Lecture.class);
 		    startActivity(intent);
+		    
+//passer l'URI du morceau
 		}
 		
 		
 		else{
 			Uri uri_music = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
-			textView.setText(uri_music.toString());
 			Intent intent = new Intent(Intent.ACTION_PICK, uri_music);
 			//ACTION_PICK ou ACTION_CHOOSER
 			//voir la doc de ACTION_PICK
@@ -62,14 +62,10 @@ public class Choix extends Activity implements View.OnClickListener {
 	        // Make sure the request was successful
 	        if (resultCode == RESULT_OK) {
 	        	
-	        	//startActivity(new Intent(this, MainActivity.class));
-	        	
-	            //Uri resultUri = data.getData();
-	            //name = resultUri.getUserInfo();
-	            //textView.setText(name);
+	            Uri resultUri = data.getData();
+	            name = resultUri.getUserInfo();
+	            textView.setText(resultUri.toString());
 	            
-	            
-	            //startActivity(data);
 	        }
 	    }
 	}
