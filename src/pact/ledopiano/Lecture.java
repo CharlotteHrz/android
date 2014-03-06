@@ -1,6 +1,7 @@
 package pact.ledopiano;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.widget.Button;
@@ -11,6 +12,8 @@ public class Lecture extends Activity implements View.OnClickListener {
 	private Button play;
 	private Button stop;
 	private Button retour;
+	private TextView nom_morceau;
+	private Uri uri;
 	
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -23,10 +26,11 @@ public class Lecture extends Activity implements View.OnClickListener {
 		retour = (Button) findViewById(R.id.button3);
 		retour.setOnClickListener(this);
 		
-		TextView nom_morceau = (TextView) findViewById(R.id.textView2);
+		nom_morceau = (TextView) findViewById(R.id.textView2);
 		Uri uri = getIntent().getParcelableExtra("morceau");
         nom_morceau.setText(uri.getLastPathSegment());
 		//nom_morceau.setText(uri.toString());
+        
 	}
 
 	@Override
@@ -34,6 +38,13 @@ public class Lecture extends Activity implements View.OnClickListener {
 		switch(v.getId()){
 		case R.id.button1:
 			//mettre en play/pause
+			
+			Intent intent = new Intent(Intent.ACTION_RUN, uri);
+			startActivity(intent);
+	        
+			//Intent.CATEGORY_APP_MUSIC
+	        //garder en mémoire : Context -> bindService()
+			
 			break;
 		case R.id.button2:
 			//faire stop

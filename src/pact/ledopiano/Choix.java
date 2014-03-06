@@ -40,16 +40,12 @@ public class Choix extends Activity implements View.OnClickListener {
 			
 			intent.putExtra("morceau", resultUri);
 		    startActivity(intent);
-		    
-//passer l'URI du morceau
 		}
 		
 		
 		else{
 			Uri uri_music = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
 			Intent intent = new Intent(Intent.ACTION_PICK, uri_music);
-			//ACTION_PICK ou ACTION_CHOOSER
-			//voir la doc de ACTION_PICK
 			
 			if(v == findViewById(R.id.button7))
 				startActivityForResult(intent, code_bibli);
@@ -66,7 +62,9 @@ public class Choix extends Activity implements View.OnClickListener {
 	        if (resultCode == RESULT_OK) {
 	        	
 	            resultUri = data.getData();
-	            textView.setText(resultUri.toString());
+	            //Ce n'est malheureusement pas le nom mais le path.
+	            name = resultUri.toString();
+	            textView.setText(name);
 	            
 	        }
 	    }
