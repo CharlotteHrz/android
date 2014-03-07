@@ -42,7 +42,7 @@ public class Lecture extends Activity implements View.OnClickListener {
 			Intent intent = new Intent(Intent.ACTION_RUN, uri);
 			startActivity(intent);
 	        
-			//Intent.CATEGORY_APP_MUSIC
+			//Intent.CATEGORY_APP_MUSIC seulement à partir de l'api 15
 	        //garder en mémoire : Context -> bindService()
 			
 			break;

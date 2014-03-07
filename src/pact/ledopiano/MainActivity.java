@@ -1,5 +1,7 @@
 package pact.ledopiano;
 
+import communication.Com;
+
 import android.os.Bundle;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -17,6 +19,8 @@ public class MainActivity extends Activity implements View.OnClickListener, OnCl
 	private Button gamme;
 	private CheckBox bluetooth;
 	private Button quit;
+	
+	private Com com;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +37,8 @@ public class MainActivity extends Activity implements View.OnClickListener, OnCl
 		bluetooth.setOnClickListener(this);
 		quit = (Button) findViewById(R.id.button5);
 		quit.setOnClickListener(this);
+		
+		com = new Com(this);
 	}
 	
 	@Override
@@ -74,7 +80,7 @@ public class MainActivity extends Activity implements View.OnClickListener, OnCl
 	@Override
 	public void onClick(DialogInterface dialog, int which) {
 		// activer bluetooth
-		
+		com.allumerBluetooth();
 	}
 	
 	public void onPause(){
@@ -104,4 +110,24 @@ public class MainActivity extends Activity implements View.OnClickListener, OnCl
 	}
 
 
+	
+	
+	
+	
+	
+	public static void etatBluetooth(int i) {
+		//Décoche le bouton bluetooth du smartphone
+		// i=0 si le bluetooth est éteint
+		// i=1 s'il est allumé
+				if (i==0) System.out.println("bluetooth éteint");
+				else System.out.println("bluetooth allumé");
+			}
+
+			
+			public static void problemeDeConnexion(){
+		//Le but est d'afficher un message à l'utilisateur pour lui dire qu'il y a un problème avec le bluetooth.
+			}
+	
+	
+	
 }
