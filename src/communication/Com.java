@@ -43,7 +43,7 @@ public class Com extends Activity {
 		BluetoothDevice arduino = null;
 		String adress = "000666631F82";
 	//Il faut y mettre l'adresse MAC de l'arduino.
-		//car cette méthode ne march pas pour l'instant
+		//car cette méthode ne marche pas pour l'instant
 		//arduino = adapter.getRemoteDevice(adress);
 		
 		Set<BluetoothDevice> pairedDevices = adapter.getBondedDevices();

@@ -22,6 +22,7 @@ public class MainActivity extends Activity implements View.OnClickListener, OnCl
 	private Button quit;
 	
 	private Com com;
+	private static ConnectedThread thread;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -129,9 +130,8 @@ public class MainActivity extends Activity implements View.OnClickListener, OnCl
 		//Le but est d'afficher un message à l'utilisateur pour lui dire qu'il y a un problème avec le bluetooth.
 			}
 
-			public static void signal(ConnectedThread connectedThread) {
-				// TODO Auto-generated method stub
-				
+			public static void signal(ConnectedThread ct){
+				thread = ct;
 			}
 	
 	
