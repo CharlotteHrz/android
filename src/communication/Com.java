@@ -51,7 +51,7 @@ public class Com extends Activity {
 		arduino = device;
 		}
 		arduino = adapter.getRemoteDevice(adress);
-		new ConnectThread(arduino);
+		new ConnectThread(arduino, main);
 	}
 	
 	

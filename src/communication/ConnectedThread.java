@@ -4,24 +4,24 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.nio.Buffer;
 
-import com.example.test.MainActivity;
+import pact.ledopiano.MainActivity;
 
 import android.bluetooth.BluetoothSocket;
 
-import smartphone.Pipeau;
-
 public class ConnectedThread extends Thread {
+	private MainActivity main;
 	private final BluetoothSocket socket;
 	private final OutputStream stream;
 	//Peut-être mettre un attribut supplémentaire = buffer ?
 	
-	public ConnectedThread(BluetoothSocket bs) {
+	public ConnectedThread(BluetoothSocket bs, MainActivity activity) {
+		main = activity;
 		socket = bs;
 		OutputStream toolStream = null;
 		try{
 			OutputStream tool = socket.getOutputStream();
 			} catch(IOException e){
-				Pipeau.problemeDeConnexion();
+				main.problemeDeConnexion();
 			}
 		stream = toolStream;
 		
@@ -41,7 +41,7 @@ public class ConnectedThread extends Thread {
 		try{
 			stream.write(buffer);
 			} catch(IOException e){
-				Pipeau.problemeDeConnexion();
+				main.problemeDeConnexion();
 			}
 	}
 

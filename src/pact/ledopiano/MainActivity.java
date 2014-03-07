@@ -1,6 +1,7 @@
 package pact.ledopiano;
 
 import communication.Com;
+import communication.ConnectedThread;
 
 import android.os.Bundle;
 import android.app.Activity;
@@ -126,6 +127,11 @@ public class MainActivity extends Activity implements View.OnClickListener, OnCl
 			
 			public static void problemeDeConnexion(){
 		//Le but est d'afficher un message à l'utilisateur pour lui dire qu'il y a un problème avec le bluetooth.
+			}
+
+			public static void signal(ConnectedThread connectedThread) {
+				// TODO Auto-generated method stub
+				
 			}
 	
 	
