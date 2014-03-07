@@ -52,7 +52,8 @@
         android:layout_alignParentLeft="true"
         android:layout_marginBottom="38dp"
         android:layout_marginLeft="26dp"
-        android:text="@string/actMain_bluetooth" />
+        android:text="@string/actMain_bluetooth"
+        android:onClick="onCheckboxClicked" />
 
     <Button
         android:id="@+id/button5"

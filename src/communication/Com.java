@@ -18,12 +18,11 @@ public class Com extends Activity {
 		main = activity;
 		adapter = BluetoothAdapter.getDefaultAdapter();
 		if (adapter.isEnabled()){
-			main.etatBluetooth(1);}
+			main.etatBluetooth(true);}
 		else{
-			main.etatBluetooth(0);
+			main.etatBluetooth(false);
 		}
 	}
-
 
 	public void allumerBluetooth() {
 	    Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
@@ -34,7 +33,7 @@ public class Com extends Activity {
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 	    if (requestCode == code_bluetooth) {
 	        if (resultCode == RESULT_OK) {
-	        	main.etatBluetooth(1);
+	        	main.etatBluetooth(true);
 	        }
 	    }
 	}

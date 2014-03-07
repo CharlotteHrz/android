@@ -18,7 +18,7 @@ public class MainActivity extends Activity implements View.OnClickListener, OnCl
 	private Button choix;
 	private Button grille;
 	private Button gamme;
-	private CheckBox bluetooth;
+	private static CheckBox bluetooth;
 	private Button quit;
 	
 	private Com com;
@@ -57,17 +57,16 @@ public class MainActivity extends Activity implements View.OnClickListener, OnCl
 			startActivity(intent2);
 			break;
 		case R.id.button3:
-			//pour demander au beandeau d'afficher une gamme
+			//pour demander au bandeau d'afficher une gamme
 			Intent intent3 = new Intent(this, Gamme.class);
 			startActivity(intent3);
 			break;
 		case R.id.checkBox1:
 			//pour réactiver le bluetooth
 			//pas encore au point...
-			Builder dialog = new AlertDialog.Builder(getApplicationContext());
-			dialog.setMessage("Réactiver le bluetooth ?");
-			dialog.setNeutralButton("OK", this);
+			com.allumerBluetooth();
 			
+			//com.connexionArduino();
 			break;
 		case R.id.button5:
 			this.onPause();
@@ -79,11 +78,24 @@ public class MainActivity extends Activity implements View.OnClickListener, OnCl
 		
 	}
 	
-	@Override
-	public void onClick(DialogInterface dialog, int which) {
-		// activer bluetooth
-		com.allumerBluetooth();
+	
+	
+	//Cocher ou décocher le bouton bluetooth si besoin est.
+	public static void etatBluetooth(boolean b) {
+		bluetooth.setChecked(b);
 	}
+
+			
+	public static void problemeDeConnexion(){
+		//Le but est d'afficher un message à l'utilisateur pour lui dire qu'il y a un problème avec le bluetooth.
+	}
+
+	public static void signal(ConnectedThread ct){
+		thread = ct;
+	}
+	
+	
+	
 	
 	public void onPause(){
 		super.onPause();
@@ -111,29 +123,13 @@ public class MainActivity extends Activity implements View.OnClickListener, OnCl
 		//à voir avec le module Communication
 	}
 
+	@Override
+	public void onClick(DialogInterface dialog, int which) {
+		// TODO Auto-generated method stub
+		
+	}
 
-	
-	
-	
-	
-	
-	public static void etatBluetooth(int i) {
-		//Décoche le bouton bluetooth du smartphone
-		// i=0 si le bluetooth est éteint
-		// i=1 s'il est allumé
-				if (i==0) System.out.println("bluetooth éteint");
-				else System.out.println("bluetooth allumé");
-			}
 
-			
-			public static void problemeDeConnexion(){
-		//Le but est d'afficher un message à l'utilisateur pour lui dire qu'il y a un problème avec le bluetooth.
-			}
-
-			public static void signal(ConnectedThread ct){
-				thread = ct;
-			}
-	
 	
 	
 }
