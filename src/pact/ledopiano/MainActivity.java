@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
+import android.bluetooth.BluetoothAdapter;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
@@ -23,6 +24,8 @@ public class MainActivity extends Activity implements View.OnClickListener, OnCl
 	
 	private Com com;
 	private static ConnectedThread thread;
+	private final BluetoothAdapter adapter = BluetoothAdapter.getDefaultAdapter();
+	final static int code_bluetooth = 1;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -62,9 +65,14 @@ public class MainActivity extends Activity implements View.OnClickListener, OnCl
 			startActivity(intent3);
 			break;
 		case R.id.checkBox1:
-			//pour réactiver le bluetooth
-			//pas encore au point...
-			com.allumerBluetooth();
+		//devrait être dans la classe Com mais n'y fonctionne pas
+			//(pb de thread, de classe fille ?
+		    Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+		    startActivityForResult(enableBtIntent, code_bluetooth);
+		//empêche l'appel au bluetooth pendant l'allumage
+		    while(adapter.isEnabled()==false){}
+			
+			//com.allumerBluetooth();
 			
 			//com.connexionArduino();
 			break;
@@ -76,6 +84,15 @@ public class MainActivity extends Activity implements View.OnClickListener, OnCl
 			this.finish();
 		}
 		
+	}
+	
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+	    if (requestCode == code_bluetooth) {
+	        if (resultCode == RESULT_OK) {
+	        	MainActivity.etatBluetooth(true);
+	        }
+	    }
 	}
 	
 	
