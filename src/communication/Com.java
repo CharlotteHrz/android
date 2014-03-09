@@ -10,11 +10,9 @@ import android.bluetooth.BluetoothDevice;
 import android.content.Intent;
 
 public class Com extends Activity {
-	MainActivity main;
 	final BluetoothAdapter adapter;
 	
-	public Com(MainActivity activity) {
-		main = activity;
+	public Com() {
 		adapter = BluetoothAdapter.getDefaultAdapter();
 		if (adapter.isEnabled()){
 			MainActivity.etatBluetooth(true);}
@@ -34,7 +32,7 @@ public class Com extends Activity {
 		for (BluetoothDevice device : pairedDevices) {
 		arduino = device;
 		}
-		new ConnectThread(arduino, main);
+		new ConnectThread(arduino);
 	}
 	
 	

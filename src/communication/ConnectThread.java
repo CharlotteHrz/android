@@ -5,26 +5,28 @@ import java.util.UUID;
 
 import pact.ledopiano.MainActivity;
 
+import android.annotation.SuppressLint;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
+import android.os.ParcelUuid;
 
 public class ConnectThread extends Thread {
-	private MainActivity main;
     private final BluetoothSocket mmSocket;
     private final BluetoothDevice mmDevice;
-    private final UUID uuid = UUID.fromString("000666631F82");
- 
-    public ConnectThread(BluetoothDevice arduino, MainActivity activity) {
-    	main = activity;
+    //private UUID uuid = UUID.fromString("000666631F82"); POUR ARDUINO !!!
+    //private final UUID uuid = UUID.fromString("d0:df:c7:85:23:bb"); smartphone
+    
+	public ConnectThread(BluetoothDevice arduino) {
         BluetoothSocket tmp = null;
         mmDevice = arduino;
- 
+    	
         try {
-            tmp = arduino.createRfcommSocketToServiceRecord(uuid);
+            tmp = arduino.createRfcommSocketToServiceRecord(UUID.fromString("00001101-0000-1000-8000-00805F9B34FB"));
         } catch (IOException e) {
-        	main.problemeDeConnexion();
+        	MainActivity.problemeDeConnexion();
         }
         mmSocket = tmp;
+        MainActivity.signal(this);
     }
 
     
@@ -37,12 +39,12 @@ public class ConnectThread extends Thread {
             try {
                 mmSocket.close();
             } catch (IOException closeException) {
-            	main.problemeDeConnexion();
+            	MainActivity.problemeDeConnexion();
             }
             
         }
- 
-        new ConnectedThread(mmSocket, main);
+        
+        new ConnectedThread(mmSocket);
     }
  
     /** Will cancel an in-progress connection, and close the socket */
@@ -50,7 +52,7 @@ public class ConnectThread extends Thread {
         try {
             mmSocket.close();
         } catch (IOException e) {
-        	main.problemeDeConnexion();
+        	MainActivity.problemeDeConnexion();
         }
     }
 

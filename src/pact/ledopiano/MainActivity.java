@@ -1,6 +1,9 @@
 package pact.ledopiano;
 
+import java.io.UnsupportedEncodingException;
+
 import communication.Com;
+import communication.ConnectThread;
 import communication.ConnectedThread;
 
 import android.os.Bundle;
@@ -23,6 +26,7 @@ public class MainActivity extends Activity implements View.OnClickListener, OnCl
 	private Button quit;
 	
 	private Com com;
+	private static ConnectThread cThread;
 	private static ConnectedThread thread;
 	private final BluetoothAdapter adapter = BluetoothAdapter.getDefaultAdapter();
 	final static int code_bluetooth = 1;
@@ -43,7 +47,7 @@ public class MainActivity extends Activity implements View.OnClickListener, OnCl
 		quit = (Button) findViewById(R.id.button5);
 		quit.setOnClickListener(this);
 		
-		com = new Com(this);
+		com = new Com();
 	}
 	
 	@Override
@@ -74,7 +78,7 @@ public class MainActivity extends Activity implements View.OnClickListener, OnCl
 			
 			//com.allumerBluetooth();
 			
-			//com.connexionArduino();
+			com.connexionArduino();
 			break;
 		case R.id.button5:
 			this.onPause();
@@ -92,6 +96,7 @@ public class MainActivity extends Activity implements View.OnClickListener, OnCl
 	        if (resultCode == RESULT_OK) {
 	        	MainActivity.etatBluetooth(true);
 	        }
+	        else MainActivity.problemeDeConnexion();
 	    }
 	}
 	
@@ -105,10 +110,23 @@ public class MainActivity extends Activity implements View.OnClickListener, OnCl
 			
 	public static void problemeDeConnexion(){
 		//Le but est d'afficher un message à l'utilisateur pour lui dire qu'il y a un problème avec le bluetooth.
+		MainActivity.etatBluetooth(false);
 	}
 
+	public static void signal(ConnectThread ct){
+		cThread = ct;
+		cThread.run();
+	}
+	
 	public static void signal(ConnectedThread ct){
 		thread = ct;
+		
+		try {
+			thread.transmettre("0x01".getBytes("ASCII"));
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	
@@ -135,6 +153,8 @@ public class MainActivity extends Activity implements View.OnClickListener, OnCl
 	}
 	
 	public void onDestroy() {
+		adapter.disable();
+		
 	    super.onDestroy();
 		//il faudra peut-être gérer la fermeture de Threads,
 		//à voir avec le module Communication
