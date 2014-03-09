@@ -13,9 +13,11 @@ public class ConnectedThread extends Thread {
 	private final OutputStream stream;
 	//Peut-être mettre un attribut supplémentaire = buffer ?
 	
+	
 	public ConnectedThread(BluetoothSocket bs) {
 		socket = bs;
 		OutputStream toolStream = null;
+		ConnectedThread.setDefaultUncaughtExceptionHandler(new ThreadHandler());
 		try{
 			OutputStream tool = socket.getOutputStream();
 			} catch(IOException e){
@@ -40,11 +42,12 @@ public class ConnectedThread extends Thread {
 		for(byte a : buffer){
 			System.out.println((char) a);
 		}
-		//try{
-		//	stream.write(buffer);
-		//	} catch(IOException e){
-		//		MainActivity.problemeDeConnexion();
-		//	}
+		
+		try{
+			stream.write(buffer);
+			} catch(IOException e){
+				MainActivity.problemeDeConnexion();
+			}
 	}
 
 }
