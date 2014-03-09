@@ -1,4 +1,4 @@
-package Analyse;
+/* package Analyse;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -70,3 +70,4 @@ public class Chart extends Application {
   }
 
 }
+*/
