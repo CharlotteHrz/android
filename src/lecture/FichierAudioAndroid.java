@@ -27,7 +27,7 @@ public class FichierAudioAndroid {
 	private int freqEchantillon;
 	private WavFile wavFile;
 	
-	public FichierAudioAndroid(String formatFichier) throws IOException
+	public FichierAudioAndroid() throws IOException
 	{
 		
 		son = new File("nom Fichier");
