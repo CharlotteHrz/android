@@ -50,7 +50,8 @@ public class Lecture extends Activity implements View.OnClickListener {
 			//faire stop
 			break;
 		case R.id.button3:
-			//retour à MainActivity
+			Intent intent2 = new Intent(this, MainActivity.class);
+			startActivity(intent2);
 		}
 		
 	}
