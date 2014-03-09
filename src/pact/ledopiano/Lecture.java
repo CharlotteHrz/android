@@ -1,5 +1,6 @@
 package pact.ledopiano;
 
+import lecture.FichierAudio;
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
@@ -14,6 +15,8 @@ public class Lecture extends Activity implements View.OnClickListener {
 	private Button retour;
 	private TextView nom_morceau;
 	private Uri uri;
+	
+	FichierAudio audio;
 	
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -31,26 +34,23 @@ public class Lecture extends Activity implements View.OnClickListener {
         nom_morceau.setText(uri.getLastPathSegment());
 		//nom_morceau.setText(uri.toString());
         
+        audio = new FichierAudio("wav");
 	}
 
 	@Override
 	public void onClick(View v) {
 		switch(v.getId()){
 		case R.id.button1:
-			//mettre en play/pause
-			
-			Intent intent = new Intent(Intent.ACTION_RUN, uri);
-			startActivity(intent);
-	        
-			//Intent.CATEGORY_APP_MUSIC seulement à partir de l'api 15
-	        //garder en mémoire : Context -> bindService()
-			
+			if (audio.isRunning()){
+				audio.lire();
+			}
+			else audio.pause();
 			break;
 		case R.id.button2:
-			//faire stop
+			audio.stop();
 			break;
 		case R.id.button3:
-			//retour à MainActivity
+			this.onDestroy();
 		}
 		
 	}

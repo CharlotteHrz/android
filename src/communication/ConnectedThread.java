@@ -9,19 +9,17 @@ import pact.ledopiano.MainActivity;
 import android.bluetooth.BluetoothSocket;
 
 public class ConnectedThread extends Thread {
-	private MainActivity main;
 	private final BluetoothSocket socket;
 	private final OutputStream stream;
 	//Peut-être mettre un attribut supplémentaire = buffer ?
 	
-	public ConnectedThread(BluetoothSocket bs, MainActivity activity) {
-		main = activity;
+	public ConnectedThread(BluetoothSocket bs) {
 		socket = bs;
 		OutputStream toolStream = null;
 		try{
 			OutputStream tool = socket.getOutputStream();
 			} catch(IOException e){
-				main.problemeDeConnexion();
+				MainActivity.problemeDeConnexion();
 			}
 		stream = toolStream;
 		
@@ -38,11 +36,15 @@ public class ConnectedThread extends Thread {
 		//éventuellement gérer les indices de début et de fin d'écriture,
 		//	ainsi que l'effacement des données écrites
 		//  (si utilisation d'un attribut buffer
-		try{
-			stream.write(buffer);
-			} catch(IOException e){
-				main.problemeDeConnexion();
-			}
+		
+		for(byte a : buffer){
+			System.out.println((char) a);
+		}
+		//try{
+		//	stream.write(buffer);
+		//	} catch(IOException e){
+		//		MainActivity.problemeDeConnexion();
+		//	}
 	}
 
 }
