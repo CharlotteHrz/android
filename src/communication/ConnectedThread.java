@@ -43,11 +43,11 @@ public class ConnectedThread extends Thread {
 			System.out.println((char) a);
 		}
 		
-		try{
-			stream.write(buffer);
-			} catch(IOException e){
-				MainActivity.problemeDeConnexion();
-			}
+		//try{
+		//	stream.write(buffer);
+		//	} catch(IOException e){
+		//		MainActivity.problemeDeConnexion();
+		//	}
 	}
 
 }
