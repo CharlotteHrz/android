@@ -23,16 +23,17 @@ public class TestLectureEnregistrement {
 				System.out.println("Voulez vous choisir un fichier WAV ou un fichier MP3 ?");
 				String choixFormat = scan.nextLine();
 				
-				FichierAudio audio = new FichierAudio(choixFormat);
+				FichierAudioAndroid audio = new FichierAudioAndroid();
 				
 
-				audio.lire();
+		//		audio.lire();
 			}
 
-			else if (choix.equalsIgnoreCase("record") == true){ 
-				FichierAudio audio = new FichierAudio();
+			/* else if (choix.equalsIgnoreCase("record") == true){ 
+				FichierAudioAndroid audio = new FichierAudioAndroid();
 				audio.record();
 			}
+			*/
 
 			else if (choix.equalsIgnoreCase("fourier") == true){
 				//Choix Format
@@ -40,15 +41,15 @@ public class TestLectureEnregistrement {
 				System.out.println("Voulez vous choisir un fichier WAV ou un fichier MP3 ?");
 				String choixFormat = scan.nextLine();
 				
-				FichierAudio audio = new FichierAudio(choixFormat);
+				FichierAudioAndroid audio = new FichierAudioAndroid();
 				audio.transformeeDeFourier();
 			}
 
 			else if (choix.equalsIgnoreCase("synth") == true){
 				//Choix Fichier
 
-				FichierAudio audio = new FichierAudio();
-				audio.audioSynth();
+				FichierAudioAndroid audio = new FichierAudioAndroid();
+				//audio.audioSynth();
 			}
 
 			else if (choix.equalsIgnoreCase("mp3") == true){
@@ -56,9 +57,9 @@ public class TestLectureEnregistrement {
 				System.out.println("Voulez vous choisir un fichier WAV ou un fichier MP3 ?");
 				String choixFormat = scan.nextLine();
 
-				FichierAudio fich = new FichierAudio(choixFormat);
+				FichierAudioAndroid fich = new FichierAudioAndroid();
 
-				fich.lire();
+				//fich.lire();
 
 
 
