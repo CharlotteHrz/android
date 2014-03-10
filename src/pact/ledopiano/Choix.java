@@ -37,7 +37,7 @@ public class Choix extends Activity implements View.OnClickListener {
 	public void onClick(View v) {
 		if(v == findViewById(R.id.button8)){
 			Intent intent = new Intent(this, Lecture.class);
-			
+			intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 			intent.putExtra("morceau", resultUri);
 		    startActivity(intent);
 		}
@@ -46,6 +46,7 @@ public class Choix extends Activity implements View.OnClickListener {
 		else{
 			Uri uri_music = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
 			Intent intent = new Intent(Intent.ACTION_PICK, uri_music);
+			intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 			
 			if(v == findViewById(R.id.button7))
 				startActivityForResult(intent, code_bibli);

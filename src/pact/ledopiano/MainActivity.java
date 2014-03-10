@@ -56,16 +56,19 @@ public class MainActivity extends Activity implements View.OnClickListener, OnCl
 		case R.id.button1:
 			//ouverture d'une nouvelle activité
 			Intent intent = new Intent(this, Choix.class);
+			intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 			startActivity(intent);
 			break;
 		case R.id.button2:
 			//passage direct à la fenêtre montrant la grille d'accord
 			Intent intent2 = new Intent(this, Grille.class);
+			intent2.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 			startActivity(intent2);
 			break;
 		case R.id.button3:
 			//pour demander au bandeau d'afficher une gamme
 			Intent intent3 = new Intent(this, Gamme.class);
+			intent3.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 			startActivity(intent3);
 			break;
 		case R.id.checkBox1:

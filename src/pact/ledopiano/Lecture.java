@@ -40,6 +40,7 @@ public class Lecture extends Activity implements View.OnClickListener {
 			//mettre en play/pause
 			
 			Intent intent = new Intent(Intent.ACTION_RUN, uri);
+			intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 			startActivity(intent);
 	        
 			//Intent.CATEGORY_APP_MUSIC seulement à partir de l'api 15
@@ -51,6 +52,7 @@ public class Lecture extends Activity implements View.OnClickListener {
 			break;
 		case R.id.button3:
 			Intent intent2 = new Intent(this, MainActivity.class);
+			intent2.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 			startActivity(intent2);
 		}
 		
