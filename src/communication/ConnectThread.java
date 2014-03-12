@@ -13,8 +13,6 @@ import android.os.ParcelUuid;
 public class ConnectThread extends Thread {
     private final BluetoothSocket mmSocket;
     private final BluetoothDevice mmDevice;
-    //private UUID uuid = UUID.fromString("000666631F82"); POUR ARDUINO !!!
-    //private final UUID uuid = UUID.fromString("d0:df:c7:85:23:bb"); smartphone
     
 	public ConnectThread(BluetoothDevice arduino) {
         BluetoothSocket tmp = null;

@@ -7,7 +7,6 @@ import pact.ledopiano.MainActivity;
 import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
-import android.content.Intent;
 
 public class Com extends Activity {
 	final BluetoothAdapter adapter;

@@ -122,7 +122,7 @@ public class MainActivity extends Activity implements View.OnClickListener, OnCl
 		thread = ct;
 		
 		try {
-			thread.transmettre("0x01".getBytes("ASCII"));
+			thread.transmettre("bonjour".getBytes("ASCII"));
 		} catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
