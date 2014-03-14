@@ -115,18 +115,13 @@ public class MainActivity extends Activity implements View.OnClickListener, OnCl
 
 	public static void signal(ConnectThread ct){
 		cThread = ct;
-		cThread.run();
+		cThread.start();
 	}
 	
 	public static void signal(ConnectedThread ct){
 		thread = ct;
+		thread.start();
 		
-		try {
-			thread.transmettre("bonjour".getBytes("ASCII"));
-		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 	
 	
