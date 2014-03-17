@@ -34,12 +34,7 @@ public class ConnectedThread extends Thread {
 	
 	
 	public void run() {
-		try {
-			this.transmettre("bonjour".getBytes("ASCII"));
-		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		this.transmettre(new byte[] {1,2,1,1});
 		
 		System.out.println("Dans run(), le stream est " + stream);
 	}
@@ -50,15 +45,12 @@ public class ConnectedThread extends Thread {
 		//	ainsi que l'effacement des données écrites
 		//  (si utilisation d'un attribut buffer
 		
-		for(byte a : buffer){
-			System.out.println((char) a);
-		}
-		
 		System.out.println("Avant le bug, le stream est " + stream);
 		try{
-			stream.write(new byte[] {1,2});
+			stream.write(buffer);
+			stream.flush();
 			} catch(IOException e){
-				Log.e("My activity", "Erreur lors de l'écriture dans la socket");
+				Log.e("My activity", "Erreur lors de l'écriture dans la socket\n"+e.getLocalizedMessage());
 			}
 	}
 

@@ -150,6 +150,16 @@ public class MainActivity extends Activity implements View.OnClickListener, OnCl
 	public void onDestroy() {
 		adapter.disable();
 		
+		if (cThread != null) {
+			cThread.cancel();
+			cThread.interrupt();
+		}
+		
+		if (thread != null) {
+			thread.cancel();
+			thread.interrupt();
+		}
+		
 	    super.onDestroy();
 		//il faudra peut-être gérer la fermeture de Threads,
 		//à voir avec le module Communication

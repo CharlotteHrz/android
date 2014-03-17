@@ -3,10 +3,10 @@ package communication;
 import java.util.Set;
 
 import pact.ledopiano.MainActivity;
-
 import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
+import android.util.Log;
 
 public class Com extends Activity {
 	final BluetoothAdapter adapter;
@@ -29,7 +29,8 @@ public class Com extends Activity {
 		
 		Set<BluetoothDevice> pairedDevices = adapter.getBondedDevices();
 		for (BluetoothDevice device : pairedDevices) {
-		arduino = device;
+				arduino = device;
+		Log.e("Ici","Appareil : "+device.getName());
 		}
 		new ConnectThread(arduino);
 	}

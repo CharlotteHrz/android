@@ -1,14 +1,15 @@
 package communication;
 
 import java.io.IOException;
+import java.lang.reflect.Method;
 import java.util.UUID;
 
 import pact.ledopiano.MainActivity;
-
 import android.annotation.SuppressLint;
+import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
-import android.os.ParcelUuid;
+import android.util.Log;
 
 public class ConnectThread extends Thread {
     private final BluetoothSocket mmSocket;
@@ -19,21 +20,27 @@ public class ConnectThread extends Thread {
         mmDevice = arduino;
     	
         try {
+        	
+//DIFFERENCIER SELON LES VERSIONS
+        	
+        	//Method m = mmDevice.getClass().getMethod("createRfcommSocket", new Class[] {int.class});
+            //tmp = (BluetoothSocket) m.invoke(mmDevice, 1);
+        	
             tmp = arduino.createRfcommSocketToServiceRecord(UUID.fromString("00001101-0000-1000-8000-00805F9B34FB"));
-        } catch (IOException e) {
+        	//tmp = arduino.createRfcommSocketToServiceRecord(UUID.fromString("00001105-0000-1000-8000-00805F9B34FB"));
+        } catch (Exception e) {
+        	Log.e("ConnectThread","UUID\n"+e);
         	MainActivity.problemeDeConnexion();
         }
         mmSocket = tmp;
         MainActivity.signal(this);
-    }
-
-    
-    public void run() {
- 
+        
         try {
+        	BluetoothAdapter adapter = BluetoothAdapter.getDefaultAdapter();
+        	adapter.cancelDiscovery();
             mmSocket.connect();
         } catch (IOException connectException) {
-
+        	Log.e("ConnectThread","Erreur ouverture Socket\n"+connectException);
             try {
                 mmSocket.close();
             } catch (IOException closeException) {
@@ -43,6 +50,24 @@ public class ConnectThread extends Thread {
         }
         
         new ConnectedThread(mmSocket);
+    }
+
+    
+    public void run() {
+ /*
+        try {
+            mmSocket.connect();
+        } catch (IOException connectException) {
+        	Log.e("ConnectThread","Erreur ouverture Socket\n"+connectException);
+            try {
+                mmSocket.close();
+            } catch (IOException closeException) {
+            	MainActivity.problemeDeConnexion();
+            }
+            
+        }
+        
+        new ConnectedThread(mmSocket);*/
     }
  
     /** Will cancel an in-progress connection, and close the socket */
