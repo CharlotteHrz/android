@@ -11,5 +11,7 @@
 	<classpathentry kind="lib" path="data/Archives/mp3spi1.9.5.jar"/>
 	<classpathentry kind="lib" path="data/Archives/jmathplot.jar"/>
 	<classpathentry kind="lib" path="data/Archives/tritonus_share.jar"/>
+	<classpathentry kind="lib" path="/home/luap/Documents/Projets/PACT/android/data/Archives/android-midi-libv3-49.jar"/>
+	<classpathentry kind="lib" path="data/Archives/android-midi-libv3-49.jar"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>
