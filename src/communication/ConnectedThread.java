@@ -5,8 +5,6 @@ import java.io.OutputStream;
 import java.io.InputStream;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
-import java.nio.Buffer;
 
 import pact.ledopiano.MainActivity;
 
@@ -15,8 +13,8 @@ import android.util.Log;
 
 public class ConnectedThread extends Thread {
 	private final BluetoothSocket socket;
-	private final OutputStream stream;
-	private final BufferedReader RXstream;
+	private static OutputStream stream;
+	private final BufferedReader InputStream;
 	//Peut-être mettre un attribut supplémentaire = buffer ?
 	
 	public ConnectedThread(BluetoothSocket bs) {
@@ -31,7 +29,7 @@ public class ConnectedThread extends Thread {
 				MainActivity.problemeDeConnexion();
 			}
 		stream = toolStream;
-		RXstream=new BufferedReader(new InputStreamReader(RXstreamtmp));
+		InputStream=new BufferedReader(new InputStreamReader(RXstreamtmp));
 		System.out.println("Au début de CtedThread, le stream est " + stream);
 		
 		//Se signaler à la méthode main
@@ -41,9 +39,9 @@ public class ConnectedThread extends Thread {
 	
 	
 	public void run() {
-		this.transmettre(new byte[] {1,2,1,1});
+		ConnectedThread.transmettre(new byte[] {1,2,1,1});
 		try {
-			System.out.println(this.RXstream.readLine()+" Fin lecture\n");
+			System.out.println(this.InputStream.readLine()+" Fin lecture\n");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			System.out.println("erreur lecture");
@@ -52,7 +50,7 @@ public class ConnectedThread extends Thread {
 	}
 	
 	
-	public void transmettre(byte[] buffer){
+	static void transmettre(byte[] buffer){
 		//éventuellement gérer les indices de début et de fin d'écriture,
 		//	ainsi que l'effacement des données écrites
 		//  (si utilisation d'un attribut buffer

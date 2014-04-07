@@ -19,19 +19,15 @@ public class ConnectThread extends Thread {
         BluetoothSocket tmp = null;
         mmDevice = arduino;
     	
+        	//envoyer qqc pour réveiller le bluetooth
         try {
-        	
-//DIFFERENCIER SELON LES VERSIONS
-        	
-        	//Method m = mmDevice.getClass().getMethod("createRfcommSocket", new Class[] {int.class});
-            //tmp = (BluetoothSocket) m.invoke(mmDevice, 1);
-        	
-            tmp = arduino.createRfcommSocketToServiceRecord(UUID.fromString("00001101-0000-1000-8000-00805F9B34FB"));
-        	//tmp = arduino.createRfcommSocketToServiceRecord(UUID.fromString("00001105-0000-1000-8000-00805F9B34FB"));
-        } catch (Exception e) {
-        	Log.e("ConnectThread","UUID\n"+e);
-        	MainActivity.problemeDeConnexion();
-        }
+        	while (tmp==null){
+				tmp = arduino.createRfcommSocketToServiceRecord(UUID.fromString("00001101-0000-1000-8000-00805F9B34FB"));
+        	}
+        } catch (IOException e) {
+				e.printStackTrace();
+			}
+        
         mmSocket = tmp;
         MainActivity.signal(this);
         
