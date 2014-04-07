@@ -13,10 +13,12 @@ public class ChromaIntermediaire
 		ChromasTheoriques theorie = new ChromasTheoriques();
 		ArrayList<String> chromaTheoMorceau=new ArrayList<String>();
 		ArrayList<String[]> chromaInter=new ArrayList<String[]>();
+		
 		for(int i=0;i<chromaMorceau.size();i++)
 		{
 			chromaInter.add(chromaMorceau.get(i).closerChromaTheoric());
 		}System.out.println("taille de ChromaInter : "+chromaInter.size());
+		
 		int depart=0;// Au cas o� la musique ne commence pas d�s le d�but du fichier son
 
 		for (int i= 0; i<chromaInter.size();i++)
@@ -43,6 +45,7 @@ public class ChromaIntermediaire
 		{
 			System.out.println(chromaTheoMorceau.get(i));
 		}
+		
 		System.out.println("taille de ChromaTheoMorceau : "+chromaTheoMorceau.size());
 
 		System.out.println(chromaTheoMorceau.size());
