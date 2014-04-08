@@ -1,13 +1,12 @@
 package harmonie;
 import java.util.ArrayList;
-import javax.sound.midi.InvalidMidiDataException;
 import Analyse.Chroma;
 import Analyse.ChromasTheoriques;
 import Analyse.Note;
 
 public class ChromaIntermediaire 
 {
-	public static GrilleAccords AnalyseChroma(ArrayList<Chroma> chromaMorceau) throws InvalidMidiDataException, Exception
+	public static GrilleAccords AnalyseChroma(ArrayList<Chroma> chromaMorceau) throws Exception
 	{
 		System.out.println("taille de ChromaMorceau : "+chromaMorceau.size());
 		ChromasTheoriques theorie = new ChromasTheoriques();

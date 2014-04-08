@@ -3,10 +3,6 @@ package Analyse;
 import java.io.IOException;
 import java.util.ArrayList;
 import Analyse.TableauNotes;
-import javax.sound.midi.InvalidMidiDataException;
-import javax.sound.sampled.UnsupportedAudioFileException;
-
-import lecture.FichierAudio;
 
 public class Chroma {
 
@@ -14,29 +10,10 @@ public class Chroma {
 	private String nom;
 
 
-	public Chroma(String path,String nom) throws InvalidMidiDataException, Exception
+	public Chroma(double[] table,String nom) 
 	{
 		this.nom=nom;
-		TableauNotes tableau= new TableauNotes(path,1);
-		table = tableau.getTableau().get(0);
-
-		double normeTableau = 0;
-		for(int note=0;note<12; note++)
-		{
-			normeTableau=normeTableau+Math.pow(this.table[note],2);
-		}
-
-		normeTableau=Math.sqrt(normeTableau);
-
-
-		if (normeTableau!=0)
-		{
-			for(int note=0;note<12;note++)
-			{
-				this.table[note]=this.table[note]/normeTableau;
-			}	
-
-		}
+		this.table=table;
 	}
 
 	public Chroma() 

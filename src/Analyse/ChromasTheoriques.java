@@ -1,30 +1,67 @@
 package Analyse;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import javax.sound.midi.InvalidMidiDataException;
+
+
 
 public class ChromasTheoriques {
 	
-	static ArrayList<Chroma> chromasTheoriques;
+static  ArrayList<Chroma> chromasTheoriques;
 
 	
-	public ChromasTheoriques() throws InvalidMidiDataException, Exception
-	{
-	chromasTheoriques = new ArrayList<Chroma>();
-		for(int i=0; i<12; i++){
+	public ChromasTheoriques() throws IOException 
+	{		
+		
+			FileReader aLire = new FileReader("chromastheoriques.txt");
+			BufferedReader reader = new BufferedReader(aLire);
+		
+			//lecture du fichier contenant les chromas
+			
+			double[][] vecteur = new double[24][12];
+			
+			for (int i1=0; i1<24; i1++)
+			{
+			for (int k = 0; k<12; k++)
+			{
+				String lignes = reader.readLine();
+				vecteur[i1][k] = Double.parseDouble(lignes);
+
+			}
+			}
+			
+		chromasTheoriques = new ArrayList<Chroma>();
+		
+			for(int i=0; i<12; i++) //chromas theoriques majeurs
+		{
+		
+				
 			Note note = new Note(i);
-			Chroma chroma = new Chroma("data/chromastheoriques/majeur/"+i+".mid",note.getNomNote()+"M");
+
+			Chroma chroma = new Chroma(vecteur[i] , note.getNomNote()+"M");
+		
 			chromasTheoriques.add(chroma);
+		
+			
+		}
+			for(int i=0; i<12; i++) //chromas theoriques mineurs
+			{
+			
+					
+				Note note = new Note(i);
+
+				Chroma chroma = new Chroma(vecteur[i+12] , note.getNomNote()+"m");
+			
+				chromasTheoriques.add(chroma);		
+				
 			}
 		
-		for(int j1=0; j1<12; j1++){
-				Note noteM = new Note(j1);
-				Chroma chromaM = new Chroma("data/chromastheoriques/mineur/"+j1+".mid",noteM.getNomNote()+"m");
-				chromasTheoriques.add(chromaM);
-		
-	}
+
+	
 	
 	}
 	public void apercu()

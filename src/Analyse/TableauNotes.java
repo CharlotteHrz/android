@@ -4,11 +4,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import javax.sound.midi.InvalidMidiDataException;
-import javax.sound.midi.MidiEvent;
-import javax.sound.midi.MidiSystem;
-import javax.sound.midi.Sequence;
-import javax.sound.midi.Track;
 public class TableauNotes {
 
 
@@ -34,50 +29,9 @@ public class TableauNotes {
 	//constructeur
 
 
-	// à partir d'un midi
-	public TableauNotes(String path, int trackNb) throws InvalidMidiDataException, IOException
+		public TableauNotes(ArrayList<double[]>  tableau) 
 	{
-
-		tableau = new ArrayList<double[]>(); 
-		//on initialise
-		long battue = 0;
-		int indiceTableau = 0;
-
-		double[] vecteur= new double[12];
-		this.tableau.add(0, vecteur);
-
-		File fichier = new File(path);
-		Sequence s = MidiSystem.getSequence(fichier);
-		Track[] tracks = s.getTracks();
-
-
-		//on itere sur les MidiEvent
-		for(int i =0; i<tracks[trackNb].size(); i++) {
-
-			MidiEvent event = tracks[trackNb].get(i);
-			byte[] b = event.getMessage().getMessage();
-
-			//System.out.println("["+Math.abs(b[0])+", "+ Math.abs(b[1])+", "+Math.abs(b[2])+"]"+event.getTick());
-
-			if (event.getTick()== battue)//ie on ne change pas de tableau
-			{
-				this.traiterNote(b, indiceTableau); 
-			}
-
-			else //ie on avance d'un cran
-			{	
-				indiceTableau++;
-				battue=event.getTick();
-				double[] vecteur2= new double[12];
-				for (int i1 =0; i1<12; i1++){vecteur2[i1]=this.tableau.get(indiceTableau -1)[i1];}
-				this.tableau.add(indiceTableau, vecteur2);	
-				this.traiterNote(b, indiceTableau);
-			}
-		}
-	}
-	public TableauNotes() 
-	{
-		tableau = new ArrayList<double[]>(); 
+		this.tableau = tableau; 
 	}
 	// m�thodes
 
