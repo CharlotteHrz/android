@@ -29,11 +29,12 @@ public class TableauNotes {
 	//constructeur
 	public TableauNotes() 
 	{
-		tableau = new ArrayList<double[]>(); 
+		this.tableau = new ArrayList<double[]>(); 
 		calculBasse = new double[12];
 	}
 
 	// methodes
+
 
 
 	public void TabParEchantillon(ArrayList<double[]> echantillon)
