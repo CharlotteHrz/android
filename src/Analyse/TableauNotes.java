@@ -24,15 +24,16 @@ public class TableauNotes {
 
 
 	private ArrayList<double[]> tableau;
-
+	private double[] calculBasse;
 
 	//constructeur
-
-		public TableauNotes(ArrayList<double[]>  tableau) 
+	public TableauNotes() 
 	{
-		this.tableau = tableau; 
+		tableau = new ArrayList<double[]>(); 
+		calculBasse = new double[12];
 	}
-	// m�thodes
+
+	// methodes
 
 
 	public void TabParEchantillon(ArrayList<double[]> echantillon)
@@ -40,6 +41,7 @@ public class TableauNotes {
 
 		ArrayList<Double> freqNote=new ArrayList<Double>(12);
 		double[] amplitude= new double[12];
+		double[] amplitudeb= new double[12];
 		double ecart=1.;
 
 		freqNote.add( (Double) 16.3);
@@ -68,11 +70,16 @@ public class TableauNotes {
 					if((echantillon.get(freq)[0])<(freqNote.get(note)*(Math.pow(2.,(double)octave))+ecart) && ((freqNote.get(note)*(Math.pow(2,(double) octave))-ecart)<(echantillon.get(freq)[0]) ))
 					{
 						amplitude[note]=amplitude[note] + echantillon.get(freq)[1];
+						if(octave<=3)
+						{
+							amplitudeb[note]=amplitudeb[note] + echantillon.get(freq)[1];
+						}
 					}
 				}
 			}
 
 		}
+		calculBasse=amplitudeb;
 		tableau.add(amplitude);
 	}
 
@@ -104,44 +111,65 @@ public class TableauNotes {
 		return false;
 
 	}
-	
+
 	public ArrayList<Chroma> TableChroma() 
 	{
-		
+
 		ArrayList<Chroma> tableChroma = new ArrayList<Chroma> ();
-	
-		
+
+
 		for (int i = 0; i<this.tableau.size(); i++)
-	
+
 		{	
-			
+
 			Chroma chroma= new Chroma();
 
 			double normeTableau=0;
-			
+
 			// Calcul de la norme
 			for(int note=0;note<12; note++)
-				{
+			{
 				normeTableau=normeTableau+Math.pow(this.tableau.get(i)[note],2);
-				}
-			
+			}
+
 			normeTableau=Math.sqrt(normeTableau);
-			
-			
+
+
 			if (normeTableau!=0)
 			{
-			for(int note=0;note<12;note++)
+				for(int note=0;note<12;note++)
 				{
-				chroma.getTable()[note]=this.tableau.get(i)[note]/normeTableau;
+					chroma.getTable()[note]=this.tableau.get(i)[note]/normeTableau;
 				}	
 
 			}
 			tableChroma.add(chroma);
 		}
-		
+
 		return(tableChroma);
 	}
-	
+
+	public int donneBasseEch()
+	{
+		int indiceMax=0;
+		double max= calculBasse[0];
+		for(int i=0;i<12;i++)
+		{
+			if(calculBasse[i]>max)
+			{
+				max=calculBasse[i];
+				indiceMax=i;
+			}
+		}
+		if(max<=0)
+		{
+			return -1;
+		}
+		else
+		{
+			return indiceMax;
+		}
+	}
 	public void apercu()
 	{
 		for(int i =0; i<this.tableau.size(); i++) {
@@ -154,4 +182,13 @@ public class TableauNotes {
 		}
 	}
 
-	public ArrayList<double[]> getTableau(){return this.tableau;}}
+	public ArrayList<double[]> getTableau()
+	{
+		return this.tableau;
+	}
+	
+	public double[] getBasse()
+	{
+		return calculBasse;
+	}		
+}

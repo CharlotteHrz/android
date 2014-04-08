@@ -40,25 +40,18 @@ public class ChromaIntermediaire
 				}
 			}
 		}
-		
-		/*for(int i=0;i<chromaTheoMorceau.size();i++)
-		{
-			System.out.println(chromaTheoMorceau.get(i));
-		}
-		
-		System.out.println("taille de ChromaTheoMorceau : "+chromaTheoMorceau.size());*/
 
-		System.out.println(chromaTheoMorceau.size());
+		//System.out.println(chromaTheoMorceau.size());
 		Note note= new Note(chromaTheoMorceau.get(0));//juste pour respecter la tonalite
 
 		int tonalite=note.getValeur();
-		//System.out.println(""+tonalite);
+		
 		boolean majeur=(chromaTheoMorceau.get(0).indexOf('M')!=-1);
 
 		GrilleAccords grille= new GrilleAccords(tonalite, majeur);
 		int duree=500;// duree minimale d'un accord, selon la periode de calcul des transform�e de Fourier
 		int indice=0;
-		//System.out.println("indice :"+indice);
+		
 
 		while(indice<chromaTheoMorceau.size())
 		{
@@ -75,7 +68,7 @@ public class ChromaIntermediaire
 			accord.setDebut(indice*duree+depart*duree);
 			accord.setFin(accord.getDebut()+dureeAccord);
 			indice=indice+k;
-			//System.out.println(accord.getFondamentale()+accord.getChiffrage()+" "+accord.getDebut()+" "+accord.getFin());
+			
 			grille.getAccords().add(accord);
 		}
 		return grille;
