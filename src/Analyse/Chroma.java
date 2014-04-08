@@ -6,6 +6,10 @@ import Analyse.TableauNotes;
 
 public class Chroma {
 
+	
+	// il s'agit d'un vecteur symbolisant les notes jouées à un instant t.
+	// On y associe un nom qui represente le nom de l'accord joue s'il y en a.
+	
 	private double[] table;
 	private String nom;
 
@@ -47,12 +51,15 @@ public class Chroma {
 	public double compare(Chroma otherChroma)
 	{
 		double ecart=0.;
+		
+		//on calcule l'ecart avec une norme euclidienne 
+		
 		for(int note=0;note<12;note++)
 		{
 			ecart=ecart+Math.pow(this.table[note]-otherChroma.getTable()[note],2.);
 		}
 		ecart=Math.sqrt(ecart);
-		//System.out.println(otherChroma.getNom()+ "  écart de "+ ecart);
+		
 		return ecart;
 	}
 
@@ -72,13 +79,15 @@ public class Chroma {
 		{
 			j++;
 		}
-		if (j==12)
+		
+		
+		if (j==12) // il n'y a aucune note jouée
 		{	
 			retour[0] ="null";
 			retour[1] = "null";
 			return(retour);
 		}
-		else
+		else //il y a une note jouée ?
 		{
 			int i=0;
 			while (i<12 && this.table[i]!=1)
@@ -86,7 +95,7 @@ public class Chroma {
 				i++; 
 			}
 
-			if (i ==12)
+			if (i ==12) //plusieurs notes
 			{
 
 				Double mini=Double.POSITIVE_INFINITY;
@@ -94,6 +103,7 @@ public class Chroma {
 				int indexChroma=0;
 
 				int theoSize=ChromasTheoriques.chromasTheoriques.size();
+				
 				ArrayList<Double> listEcart=new ArrayList<Double>();
 
 				for(int theo=0;theo<theoSize;theo++)
@@ -119,14 +129,13 @@ public class Chroma {
 				}
 
 				int indexChroma2=listEcart.indexOf(mini);
-				//System.out.println(ChromasTheoriques.chromasTheoriques.get(indexChroma).getNom());
-
+				
 				retour[0] = ChromasTheoriques.chromasTheoriques.get(indexChroma).getNom() ;
 				retour[1] = ChromasTheoriques.chromasTheoriques.get(indexChroma2).getNom() ;
 				return(retour);
 			}
 
-			else
+			else //une seule note est jouee
 			{
 				Note note = new Note(i);
 
@@ -139,20 +148,9 @@ public class Chroma {
 
 
 
-	// méthode bidon pour le test
-	/*public static ArrayList<String> nomChromaTheoric() throws UnsupportedAudioFileException, Exception
-	{
-		ArrayList<String> noms=new ArrayList<String>();
-		FichierAudio audio = new FichierAudio ("wav");
-		audio.transformeeDeFourier();
-		Chroma thisChroma=new Chroma()
-		for(int i=0;i<noms.size();i++)
-		{
-			System.out.println(noms.get(i));
-		}
-		return noms;
-	}*/
+
 	//méthode qui sert pour choisir parmi les deux possibilités de chromas théoriques, peut éventuellement être mise ailleurs
+	
 	public static int[] traitementBasse(String[] choix,int basse)
 	{
 		Chroma choix1= ChromasTheoriques.getChromaFromNom(choix[2]);

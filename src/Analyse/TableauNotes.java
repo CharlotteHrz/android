@@ -20,13 +20,12 @@ public class TableauNotes {
 
 	 */
 
-	//attribut 
 
 
 	private ArrayList<double[]> tableau;
 	private double[] calculBasse;
 
-	//constructeur
+
 	public TableauNotes() 
 	{
 		this.tableau = new ArrayList<double[]>(); 
@@ -93,7 +92,6 @@ public class TableauNotes {
 			int valeurQuinte = Math.abs((b[1]+7)%12);
 			tableau.get(indice)[valeurNote]= tableau.get(indice)[valeurNote] + 3*b[2];
 			tableau.get(indice)[valeurQuinte]= tableau.get(indice)[valeurQuinte] + b[2];
-			//System.out.println(indice + ":note ajout�e");
 			return true;
 		} 
 
@@ -104,11 +102,11 @@ public class TableauNotes {
 			int valeurQuinte = Math.abs((b[1]+7)%12);
 			tableau.get(indice)[valeurNote]= tableau.get(indice)[valeurNote] - 3*b[2];
 			tableau.get(indice)[valeurQuinte]= tableau.get(indice)[valeurQuinte] - b[2];
-			//System.out.println(indice + ":note enlev�e");
+
 			return true;
 
 		}
-		//System.out.println(indice+ ":rien fait");
+
 		return false;
 
 	}

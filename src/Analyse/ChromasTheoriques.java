@@ -6,18 +6,15 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
-
-
-
 public class ChromasTheoriques {
 
 	static  ArrayList<Chroma> chromasTheoriques;
-
 
 	public ChromasTheoriques() throws IOException 
 	{		
 
 		FileReader aLire = new FileReader("chromastheoriques.txt");
+		
 		BufferedReader reader = new BufferedReader(aLire);
 
 		//lecture du fichier contenant les chromas
