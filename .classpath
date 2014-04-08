@@ -12,8 +12,5 @@
 	<classpathentry exported="true" kind="lib" path="data/Archives/jmathplot.jar"/>
 	<classpathentry exported="true" kind="lib" path="data/Archives/tritonus_share.jar"/>
 	<classpathentry exported="true" kind="lib" path="data/Archives/android-midi-libv3-49.jar"/>
-	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7"/>
-	<classpathentry exported="true" kind="lib" path="C:/Program Files (x86)/Java/jre7/lib/jfxrt.jar"/>
-	<classpathentry kind="src" path="/androidProjet"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>

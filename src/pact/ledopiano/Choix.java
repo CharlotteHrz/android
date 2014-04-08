@@ -18,11 +18,11 @@ public class Choix extends Activity implements View.OnClickListener {
 	private TextView textView;
 	private Uri resultUri;
 	private String path;
-	
+
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.choix);
-		
+
 		base = (Button) findViewById(R.id.button6);
 		base.setOnClickListener(this);
 		bibli = (Button) findViewById(R.id.button7);
@@ -37,42 +37,42 @@ public class Choix extends Activity implements View.OnClickListener {
 	public void onClick(View v) {
 		if(v == findViewById(R.id.button8)){
 			Intent intent = new Intent(this, Lecture.class);
-			
+
 			intent.putExtra("morceau", resultUri);
-		    startActivity(intent);
+			startActivity(intent);
 		}
-		
-		
+
+
 		else{
 			Uri uri_music = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
 			Intent intent = new Intent(Intent.ACTION_PICK, uri_music);
-			
+
 			if(v == findViewById(R.id.button7))
 				startActivityForResult(intent, code_bibli);
 			else startActivityForResult(intent, code_bdd);
-			
+
 		}
 	}
-	
+
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-	    // Check which request it is that we're responding to
-	    if (requestCode == code_bibli) {
-	        // Make sure the request was successful
-	        if (resultCode == RESULT_OK) {
-	        	
-	            resultUri = data.getData();
-	            //Ce n'est malheureusement pas le nom mais le path.
-	            path = resultUri.toString();
-	            textView.setText(path);
-	            
-	        }
-	    }
+		// Check which request it is that we're responding to
+		if (requestCode == code_bibli) {
+			// Make sure the request was successful
+			if (resultCode == RESULT_OK) {
+
+				resultUri = data.getData();
+				//Ce n'est malheureusement pas le nom mais le path.
+				path = resultUri.toString();
+				textView.setText(path);
+
+			}
+		}
 	}
-	   public String getPath() {
-		   return this.path;
-	   }
+	public String getPath() {
+		return this.path;
 	}
-	
+}
+
 
 
