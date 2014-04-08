@@ -108,7 +108,7 @@ public class TableauNotes {
 	public ArrayList<Chroma> TableChroma() 
 	{
 		
-		ArrayList<Chroma> TableChroma = new ArrayList<Chroma> ();
+		ArrayList<Chroma> tableChroma = new ArrayList<Chroma> ();
 	
 		
 		for (int i = 0; i<this.tableau.size(); i++)
@@ -136,11 +136,12 @@ public class TableauNotes {
 				}	
 
 			}
-			TableChroma.add(chroma);
+			tableChroma.add(chroma);
 		}
 		
-		return(TableChroma);
+		return(tableChroma);
 	}
+	
 	public void apercu()
 	{
 		for(int i =0; i<this.tableau.size(); i++) {

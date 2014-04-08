@@ -1,4 +1,5 @@
 package harmonie;
+
 import java.util.ArrayList;
 import Analyse.Chroma;
 import Analyse.ChromasTheoriques;
@@ -6,9 +7,8 @@ import Analyse.Note;
 
 public class ChromaIntermediaire 
 {
-	public static GrilleAccords AnalyseChroma(ArrayList<Chroma> chromaMorceau) throws Exception
+	public static GrilleAccords AnalyseChroma(ArrayList<Chroma> chromaMorceau,ArrayList<Integer> listeBasses) throws Exception
 	{
-		System.out.println("taille de ChromaMorceau : "+chromaMorceau.size());
 		ChromasTheoriques theorie = new ChromasTheoriques();
 		ArrayList<String> chromaTheoMorceau=new ArrayList<String>();
 		ArrayList<String[]> chromaInter=new ArrayList<String[]>();
@@ -16,16 +16,17 @@ public class ChromaIntermediaire
 		for(int i=0;i<chromaMorceau.size();i++)
 		{
 			chromaInter.add(chromaMorceau.get(i).closerChromaTheoric());
-		}System.out.println("taille de ChromaInter : "+chromaInter.size());
+		}
 		
-		int depart=0;// Au cas oï¿½ la musique ne commence pas dï¿½s le dï¿½but du fichier son
+		int depart=0;// Au cas où la musique ne commence pas dï¿½s le dï¿½but du fichier son
 
 		for (int i= 0; i<chromaInter.size();i++)
 		{
 			//chromaMorceau.get(i).apercu();
 			if(chromaInter.get(i)[0].equals("null")==false)
 			{
-				chromaTheoMorceau.add(Chroma.chooseBest(chromaInter, i));
+				int[] choixValeur =Chroma.traitementBasse(chromaInter.get(i), listeBasses.get(i));
+				chromaTheoMorceau.add(Chroma.chooseBest(chromaInter,i,choixValeur));
 			}
 			else
 			{
@@ -38,25 +39,26 @@ public class ChromaIntermediaire
 					depart++;
 				}
 			}
-			System.out.println(chromaMorceau.get(i).closerChromaTheoric()[0] +" ou "+chromaMorceau.get(i).closerChromaTheoric()[1]);
 		}
-		for(int i=0;i<chromaTheoMorceau.size();i++)
+		
+		/*for(int i=0;i<chromaTheoMorceau.size();i++)
 		{
 			System.out.println(chromaTheoMorceau.get(i));
 		}
 		
-		System.out.println("taille de ChromaTheoMorceau : "+chromaTheoMorceau.size());
+		System.out.println("taille de ChromaTheoMorceau : "+chromaTheoMorceau.size());*/
 
 		System.out.println(chromaTheoMorceau.size());
-		Note note= new Note(chromaTheoMorceau.get(0));//juste pour rï¿½cupï¿½rer la tonalitï¿½
+		Note note= new Note(chromaTheoMorceau.get(0));//juste pour respecter la tonalite
 
 		int tonalite=note.getValeur();
 		//System.out.println(""+tonalite);
 		boolean majeur=(chromaTheoMorceau.get(0).indexOf('M')!=-1);
 
 		GrilleAccords grille= new GrilleAccords(tonalite, majeur);
-		int duree=500;// durï¿½e minimale d'un accord, selon la pï¿½riode de calcul des transformï¿½e de Fourier
-		int indice=0;System.out.println("indice :"+indice);
+		int duree=500;// duree minimale d'un accord, selon la periode de calcul des transformï¿½e de Fourier
+		int indice=0;
+		//System.out.println("indice :"+indice);
 
 		while(indice<chromaTheoMorceau.size())
 		{
@@ -73,7 +75,7 @@ public class ChromaIntermediaire
 			accord.setDebut(indice*duree+depart*duree);
 			accord.setFin(accord.getDebut()+dureeAccord);
 			indice=indice+k;
-			System.out.println(accord.getFondamentale()+accord.getChiffrage()+" "+accord.getDebut()+" "+accord.getFin());
+			//System.out.println(accord.getFondamentale()+accord.getChiffrage()+" "+accord.getDebut()+" "+accord.getFin());
 			grille.getAccords().add(accord);
 		}
 		return grille;

@@ -134,7 +134,7 @@ public class Chroma {
 				retour[1] = note.getNomNote()+"m";
 				return(retour);
 			}
-			}
+		}
 	}
 
 
@@ -158,7 +158,7 @@ public class Chroma {
 		Chroma choix1= ChromasTheoriques.getChromaFromNom(choix[2]);
 		Chroma choix2= ChromasTheoriques.getChromaFromNom(choix[1]);
 		int[] choixValeur=new int[2];
-		
+
 		if(choix1.getTable()[basse]>choix2.getTable()[basse])
 		{
 			choixValeur[0]=1;
@@ -169,17 +169,17 @@ public class Chroma {
 			choixValeur[0]=0;
 			choixValeur[1]=1;
 		}
-		
+
 		return choixValeur;
-		
+
 	}
-	
+
 	public static String chooseBest(ArrayList<String[]> chromaMorceau,int index,int[] choix)
 	{
 		int taille=chromaMorceau.size();
 		int choix1=choix[0];
 		int choix2=choix[1];
-		
+
 		String chroma=chromaMorceau.get(index)[0];
 		if(index<taille-3)
 		{
