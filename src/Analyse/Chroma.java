@@ -133,7 +133,8 @@ public class Chroma {
 				retour[0] =note.getNomNote()+"M";
 				retour[1] = note.getNomNote()+"m";
 				return(retour);
-			}}
+			}
+			}
 	}
 
 
@@ -152,11 +153,33 @@ public class Chroma {
 		return noms;
 	}*/
 	//méthode qui sert pour choisir parmi les deux possibilités de chromas théoriques, peut éventuellement être mise ailleurs
-	public static String chooseBest(ArrayList<String[]> chromaMorceau,int index)
+	public static int[] traitementBasse(String[] choix,int basse)
+	{
+		Chroma choix1= ChromasTheoriques.getChromaFromNom(choix[2]);
+		Chroma choix2= ChromasTheoriques.getChromaFromNom(choix[1]);
+		int[] choixValeur=new int[2];
+		
+		if(choix1.getTable()[basse]>choix2.getTable()[basse])
+		{
+			choixValeur[0]=1;
+			choixValeur[1]=0;
+		}
+		else if(choix1.getTable()[basse]<choix2.getTable()[basse])
+		{
+			choixValeur[0]=0;
+			choixValeur[1]=1;
+		}
+		
+		return choixValeur;
+		
+	}
+	
+	public static String chooseBest(ArrayList<String[]> chromaMorceau,int index,int[] choix)
 	{
 		int taille=chromaMorceau.size();
-		int choix1=1;
-		int choix2=1;
+		int choix1=choix[0];
+		int choix2=choix[1];
+		
 		String chroma=chromaMorceau.get(index)[0];
 		if(index<taille-3)
 		{
