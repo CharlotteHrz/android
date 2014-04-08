@@ -1,5 +1,6 @@
 package lecture;
 
+
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -19,6 +20,7 @@ public class FichierAudio {
 	private Complex[]  transfoFourDiscrete;
 	private int freqEchantillon;
 	private WavFile wavFile;
+	private ArrayList<Integer> listeBasses= new ArrayList<Integer>();
 	
 	public FichierAudio(String formatFichier) throws IOException
 	{
@@ -81,12 +83,12 @@ public class FichierAudio {
 
 			ChromasTheoriques theorie = new ChromasTheoriques();
 
-			for (int i= 0; i<chromaMorceau.size();i++)
+			/*for (int i= 0; i<chromaMorceau.size();i++)
 			{
 				//chromaMorceau.get(i).apercu();
 				
 				System.out.println(chromaMorceau.get(i).closerChromaTheoric()[0] +" ou "+chromaMorceau.get(i).closerChromaTheoric()[1] );
-			}
+			}*/
 			
 		
 
@@ -174,13 +176,17 @@ public class FichierAudio {
 
 		
 		return pics;
-		
-	
 	}
 	
 	public void chromas(Complex[] transFour, TableauNotes tabNote)
 	{
 		tabNote.TabParEchantillon(detectionPics(transFour));
+		listeBasses.add(tabNote.donneBasseEch());
+	}
+	
+	public ArrayList<Integer> getListeBasses()
+	{
+		return listeBasses; 
 	}
 
 	
