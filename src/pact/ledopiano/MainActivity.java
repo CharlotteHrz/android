@@ -150,12 +150,17 @@ public class MainActivity extends Activity implements View.OnClickListener, OnCl
 		//RAS
 	}
 	
-	public void onDestroy() {
+/*	public void onDestroy() {
+		Intent intent=new Intent(MainActivity.this,MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP); 
+           startActivity(intent);
+           
+	}
+	*/
+/*	protected void onNewIntent(Intent intent){
+		System.out.println("appel à onNewIntent()");
+		super.onNewIntent(intent);
 		adapter.disable();
-		
-		//Intent intent=new Intent(MainActivity.this,MainActivity.class);
-        //intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP); 
-        //   startActivity(intent);
 		
         super.onPause();
         super.onStop();
@@ -163,7 +168,7 @@ public class MainActivity extends Activity implements View.OnClickListener, OnCl
 		//il faudra peut-être gérer la fermeture de Threads,
 		//à voir avec le module Communication
 	}
-
+*/
 	@Override
 	public void onClick(DialogInterface dialog, int which) {
 		// TODO Auto-generated method stub
