@@ -14,7 +14,7 @@ public class CommandeAllumage {
 	private char couleurNotesFortes;
 	private char couleurFondamentale;
 
-	CommandeAllumage(GrilleAccords grille) {
+	public CommandeAllumage(GrilleAccords grille) {
 		this.grille = grille;
 		
 		commandes = new ArrayList<Commande>();
