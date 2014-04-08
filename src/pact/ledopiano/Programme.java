@@ -14,10 +14,15 @@ public class Programme {
 
 
 
-public ArrayList<Commande> general (String name) throws Exception {
+public ArrayList<Commande> general () throws Exception {
 	
-FichierAudio fichier = new FichierAudio(name);
-//name est le nom du fichier pické
+/*besoin de créer un objet global choix avec comme attribut 
+ * le path par exemple, créer le getter qui permet d'avoir le path 
+ * comme attribut methode)	
+ */
+	
+FichierAudio fichier = new FichierAudio(path);
+//name est le path du fichier pické
 ArrayList<Chroma> tableChroma = fichier.transformeeDeFourier();
 ArrayList<Integer> listeBasse = fichier.getListeBasses();
 GrilleAccords grilleAccords = ChromaIntermediaire.AnalyseChroma(tableChroma, listeBasse);
@@ -27,5 +32,10 @@ commandeAllumage.calculerCommandes();
 ArrayList<Commande> commandes = commandeAllumage.getCommandes() ;
 return commandes;	
 	
+/*envoie de commandes en bluetooth 
+ * lancement de la lecture du morceau par MediaPlayer
+ * (+ sémaphore ?)
+ * + synchronisation pause/play
+ */
 }
 }

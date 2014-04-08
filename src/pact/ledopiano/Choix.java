@@ -17,7 +17,7 @@ public class Choix extends Activity implements View.OnClickListener {
 	private int code_bdd = 2;
 	private TextView textView;
 	private Uri resultUri;
-	private String name;
+	private String path;
 	
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -30,7 +30,7 @@ public class Choix extends Activity implements View.OnClickListener {
 		continuer = (Button) findViewById(R.id.button8);
 		continuer.setOnClickListener(this);
 		textView = (TextView) findViewById(R.id.textView2);
-		name = (String) getString(R.string.choix_text);
+		path = (String) getString(R.string.choix_text);
 	}
 
 	@Override
@@ -63,13 +63,16 @@ public class Choix extends Activity implements View.OnClickListener {
 	        	
 	            resultUri = data.getData();
 	            //Ce n'est malheureusement pas le nom mais le path.
-	            name = resultUri.toString();
-	            textView.setText(name);
+	            path = resultUri.toString();
+	            textView.setText(path);
 	            
 	        }
 	    }
 	}
+	   public String getPath() {
+		   return this.path;
+	   }
+	}
 	
 
-	
-}
+
