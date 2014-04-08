@@ -28,7 +28,6 @@ public class TableauNotes {
 
 	//constructeur
 
-
 		public TableauNotes(ArrayList<double[]>  tableau) 
 	{
 		this.tableau = tableau; 
