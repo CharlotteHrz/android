@@ -1,7 +1,9 @@
 package pact.ledopiano;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -18,6 +20,8 @@ public class Choix extends Activity implements View.OnClickListener {
 	private TextView textView;
 	private Uri resultUri;
 	private String name;
+	private SharedPreferences memory;
+	private SharedPreferences.Editor editor;
 	
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -30,7 +34,13 @@ public class Choix extends Activity implements View.OnClickListener {
 		continuer = (Button) findViewById(R.id.button8);
 		continuer.setOnClickListener(this);
 		textView = (TextView) findViewById(R.id.textView2);
-		name = (String) getString(R.string.choix_text);
+		
+		memory = getPreferences(Context.MODE_PRIVATE);
+	    editor = memory.edit();
+		name = memory.getString("uri", (String) getString(R.string.choix_text));
+		textView.setText(name);
+		resultUri = Uri.parse(name);
+		
 	}
 
 	@Override
@@ -65,15 +75,18 @@ public class Choix extends Activity implements View.OnClickListener {
 	            name = resultUri.toString();
 	            textView.setText(name);
 	            
+	            editor.putString("uri", name);
+	            editor.commit();
+	            
 	        }
 	    }
 	}
 	
-	public void onDestroy(){
+/*	public void onDestroy(){
 		Intent intent = new Intent(this, MainActivity.class);
 	    startActivity(intent);
 	}
-	
+*/	
 
 	
 }

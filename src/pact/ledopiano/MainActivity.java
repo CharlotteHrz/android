@@ -55,8 +55,8 @@ public class MainActivity extends Activity implements View.OnClickListener, OnCl
 		switch(v.getId()){
 		case R.id.button1:
 			//ouverture d'une nouvelle activité
-			Intent intent = new Intent(this, Choix.class);
-			startActivity(intent);
+			Intent intent1 = new Intent(this, Choix.class);
+			startActivity(intent1);
 			break;
 		case R.id.button2:
 			//passage direct à la fenêtre montrant la grille d'accord
@@ -81,6 +81,8 @@ public class MainActivity extends Activity implements View.OnClickListener, OnCl
 			com.connexionArduino();
 			break;
 		case R.id.button5:
+			this.onPause();
+			this.onStop();
 			this.onDestroy();
 			//
 			this.finish();
@@ -149,32 +151,12 @@ public class MainActivity extends Activity implements View.OnClickListener, OnCl
 		super.onRestart();
 		//RAS
 	}
-	
-/*	public void onDestroy() {
-		Intent intent=new Intent(MainActivity.this,MainActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP); 
-           startActivity(intent);
-           
-	}
-	*/
-/*	protected void onNewIntent(Intent intent){
-		System.out.println("appel à onNewIntent()");
-		super.onNewIntent(intent);
-		adapter.disable();
-		
-        super.onPause();
-        super.onStop();
-	    super.onDestroy();
-		//il faudra peut-être gérer la fermeture de Threads,
-		//à voir avec le module Communication
-	}
-*/
+
 	@Override
-	public void onClick(DialogInterface dialog, int which) {
+	public void onClick(DialogInterface arg0, int arg1) {
 		// TODO Auto-generated method stub
 		
 	}
-
 
 	
 	

@@ -51,7 +51,7 @@ public class Lecture extends Activity implements View.OnClickListener {
 			break;
 		case R.id.button3:
 			Intent intent2 = new Intent(this, MainActivity.class);
-			intent2.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//			intent2.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 			startActivity(intent2);
 		}
 		
