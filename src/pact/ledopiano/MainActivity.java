@@ -1,15 +1,11 @@
 package pact.ledopiano;
 
-import java.io.UnsupportedEncodingException;
-
 import communication.Com;
 import communication.ConnectThread;
 import communication.ConnectedThread;
 
 import android.os.Bundle;
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.app.AlertDialog.Builder;
 import android.bluetooth.BluetoothAdapter;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
@@ -69,14 +65,12 @@ public class MainActivity extends Activity implements View.OnClickListener, OnCl
 			startActivity(intent3);
 			break;
 		case R.id.checkBox1:
-		//devrait être dans la classe Com mais n'y fonctionne pas
-			//(pb de thread, de classe fille ?
-		    Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-		    startActivityForResult(enableBtIntent, code_bluetooth);
-		//empêche l'appel au bluetooth pendant l'allumage
-		    while(adapter.isEnabled()==false){}
-			
-			//com.allumerBluetooth();
+			if(adapter.isEnabled()==false){
+				Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+				startActivityForResult(enableBtIntent, code_bluetooth);
+			//empêche l'appel au bluetooth pendant l'allumage
+				while(adapter.isEnabled()==false){}
+				}
 			
 			com.connexionArduino();
 			break;
@@ -94,7 +88,7 @@ public class MainActivity extends Activity implements View.OnClickListener, OnCl
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 	    if (requestCode == code_bluetooth) {
 	        if (resultCode == RESULT_OK) {
-	        	MainActivity.etatBluetooth(true);
+	        	System.out.println("bluetoothAdapter allumé");
 	        }
 	        else MainActivity.problemeDeConnexion();
 	    }
@@ -107,20 +101,24 @@ public class MainActivity extends Activity implements View.OnClickListener, OnCl
 		bluetooth.setChecked(b);
 	}
 
-			
+
+	//afficher un message pour signaler un pb de bluetooth
 	public static void problemeDeConnexion(){
-		//Le but est d'afficher un message à l'utilisateur pour lui dire qu'il y a un problème avec le bluetooth.
 		MainActivity.etatBluetooth(false);
+				//cThread.cancel();	moyen... (car boucle !)
+				//thread.cancel();	moyen...
+		//puis retenter la connexion ?
+		//ou afficher une fenêtre à l'utilisateur ?
 	}
 
 	public static void signal(ConnectThread ct){
 		cThread = ct;
-		cThread.start();
+		cThread.run();
 	}
 	
 	public static void signal(ConnectedThread ct){
 		thread = ct;
-		thread.start();
+		thread.run();
 		
 	}
 	
