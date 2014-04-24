@@ -49,6 +49,8 @@ public class ConnectedThread extends Thread {
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			System.out.println("erreur lecture");
+			this.cancel();
+			this.run();
 		}
 		
 		//si ce premier message est bien reçu, cocher le bouton "connection"

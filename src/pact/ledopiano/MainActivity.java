@@ -21,7 +21,7 @@ public class MainActivity extends Activity implements View.OnClickListener, OnCl
 	private static CheckBox bluetooth;
 	private Button quit;
 	
-	private Com com;
+	private static Com com;
 	private static ConnectThread cThread;
 	private static ConnectedThread thread;
 	private final BluetoothAdapter adapter = BluetoothAdapter.getDefaultAdapter();
@@ -42,6 +42,12 @@ public class MainActivity extends Activity implements View.OnClickListener, OnCl
 		bluetooth.setOnClickListener(this);
 		quit = (Button) findViewById(R.id.button5);
 		quit.setOnClickListener(this);
+
+		if(adapter.isEnabled()==false){
+			Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+			startActivityForResult(enableBtIntent, code_bluetooth);
+		//empêche l'appel au bluetooth pendant l'allumage
+			}
 		
 		com = new Com();
 	}
@@ -65,13 +71,7 @@ public class MainActivity extends Activity implements View.OnClickListener, OnCl
 			startActivity(intent3);
 			break;
 		case R.id.checkBox1:
-			if(adapter.isEnabled()==false){
-				Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-				startActivityForResult(enableBtIntent, code_bluetooth);
-			//empêche l'appel au bluetooth pendant l'allumage
-				while(adapter.isEnabled()==false){}
-				}
-			
+			while(adapter.isEnabled()==false){}
 			com.connexionArduino();
 			break;
 		case R.id.button5:
@@ -108,6 +108,7 @@ public class MainActivity extends Activity implements View.OnClickListener, OnCl
 				//cThread.cancel();	moyen... (car boucle !)
 				//thread.cancel();	moyen...
 		//puis retenter la connexion ?
+		com.connexionArduino();
 		//ou afficher une fenêtre à l'utilisateur ?
 	}
 
