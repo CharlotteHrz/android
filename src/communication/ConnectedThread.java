@@ -7,6 +7,8 @@ import java.io.OutputStream;
 import java.io.InputStream;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
+import java.nio.Buffer;
 
 import pact.ledopiano.MainActivity;
 
@@ -15,77 +17,41 @@ import android.util.Log;
 
 public class ConnectedThread extends Thread {
 	private final BluetoothSocket socket;
-	private static OutputStream stream;
-	private final BufferedReader InputStream;
-	//Peut-ï¿½tre mettre un attribut supplï¿½mentaire = buffer ?
-
+	private final OutputStream stream;
+	private final BufferedReader RXstream;
+	//Peut-être mettre un attribut supplémentaire = buffer ?
+	
 	public ConnectedThread(BluetoothSocket bs) {
 		socket = bs;
-		System.out.println("La Socket est " + socket);
+        System.out.println("La Socket est " + socket);
 		OutputStream toolStream = null;
-		InputStream RXstreamtmp = null;
+		InputStream RXstreamtmp=null;
 		try{
 			toolStream = socket.getOutputStream();
 			RXstreamtmp= socket.getInputStream();
-		} catch(IOException e){
-			MainActivity.problemeDeConnexion();
-		}
+			} catch(IOException e){
+				MainActivity.problemeDeConnexion();
+			}
 		stream = toolStream;
-		InputStream = new BufferedReader(new InputStreamReader(RXstreamtmp));
-		System.out.println("Au dï¿½but de CtedThread, le stream est " + stream);
-
-		//Se signaler ï¿½ la mï¿½thode main
+		RXstream=new BufferedReader(new InputStreamReader(RXstreamtmp));
+		System.out.println("Au début de CtedThread, le stream est " + stream);
+		
+		//Se signaler à la méthode main
 		MainActivity.signal(this);
-
+		
 	}
-
-
-	public void run() {
-		String ACK = null;
-		this.transmettre(new byte[] {1,2,3,4});
-		//ï¿½ enlever :
-		System.out.println("envoi de donnï¿½es");
-
-		/*while(true){
-			try {
-				ACK = InputStream.readLine();
-				System.out.println(ACK);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				System.out.println("erreur lecture");
-				this.cancel();
-				this.run();
-			}
-
-			//si ce premier message est bien reï¿½u, cocher le bouton "connection"
-			if (ACK=="1234"){
-				System.out.println("bonne forme de ACK");
-				MainActivity.etatBluetooth(true);
-			}else{
-				this.cancel();
-				this.run();
-			}
-		}*/
-
-		//attente en boucle de message de la part de l'arduino
-		/*		while (true) {
-            try {
-                bytes = mmInStream.read(buffer);
-//envoyer qqc ï¿½ la classe Lecture
-
-            } catch (IOException e) {
-                break;
-            }
-        }
-		 */	}
 	
-	/*
-	 * Chaque ID de commande correspond Ã  une commande envoyÃ©e :
-	 * 0 : lecture
-	 * 10 : pause
-	 * 50 : stop 
-	 * 126 : commande d'allumage
-	 */
+	
+	public void run() {
+		this.transmettre(new byte[] {1,2,1,1});
+		try {
+			System.out.println("essai de transmission");
+			System.out.println(this.RXstream.readLine()+" Fin lecture\n");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			System.out.println("erreur lecture");
+		}
+	}
 
 	public void lecture() {
 		byte[] commandePause = {0};
@@ -135,7 +101,6 @@ public class ConnectedThread extends Thread {
 			stream.flush();
 		} catch(IOException e){
 			this.cancel();
-			Log.e("My activity", "Erreur lors de l'ï¿½criture dans la socket\n"+e.getLocalizedMessage());
 		}
 	}
 
