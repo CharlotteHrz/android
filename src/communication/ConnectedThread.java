@@ -1,5 +1,7 @@
 package communication;
 
+import harmonie.Commande;
+
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.InputStream;
@@ -15,78 +17,126 @@ public class ConnectedThread extends Thread {
 	private final BluetoothSocket socket;
 	private static OutputStream stream;
 	private final BufferedReader InputStream;
-	//Peut-être mettre un attribut supplémentaire = buffer ?
-	
+	//Peut-ï¿½tre mettre un attribut supplï¿½mentaire = buffer ?
+
 	public ConnectedThread(BluetoothSocket bs) {
 		socket = bs;
-        System.out.println("La Socket est " + socket);
+		System.out.println("La Socket est " + socket);
 		OutputStream toolStream = null;
 		InputStream RXstreamtmp = null;
 		try{
 			toolStream = socket.getOutputStream();
 			RXstreamtmp= socket.getInputStream();
-			} catch(IOException e){
-				MainActivity.problemeDeConnexion();
-			}
+		} catch(IOException e){
+			MainActivity.problemeDeConnexion();
+		}
 		stream = toolStream;
 		InputStream = new BufferedReader(new InputStreamReader(RXstreamtmp));
-		System.out.println("Au début de CtedThread, le stream est " + stream);
-		
-		//Se signaler à la méthode main
+		System.out.println("Au dï¿½but de CtedThread, le stream est " + stream);
+
+		//Se signaler ï¿½ la mï¿½thode main
 		MainActivity.signal(this);
-		
+
 	}
-	
-	
+
+
 	public void run() {
 		String ACK = null;
 		this.transmettre(new byte[] {1,2,3,4});
-//à enlever :
-		System.out.println("envoi de données");
-		try {
-			ACK = InputStream.readLine();
-			System.out.println(ACK);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			System.out.println("erreur lecture");
-			this.cancel();
-			this.run();
-		}
-		
-		//si ce premier message est bien reçu, cocher le bouton "connection"
-		if (ACK=="1234"){
-			System.out.println("bonne forme de ACK");
-			MainActivity.etatBluetooth(true);
+		//ï¿½ enlever :
+		System.out.println("envoi de donnï¿½es");
+
+		/*while(true){
+			try {
+				ACK = InputStream.readLine();
+				System.out.println(ACK);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				System.out.println("erreur lecture");
+				this.cancel();
+				this.run();
+			}
+
+			//si ce premier message est bien reï¿½u, cocher le bouton "connection"
+			if (ACK=="1234"){
+				System.out.println("bonne forme de ACK");
+				MainActivity.etatBluetooth(true);
 			}else{
 				this.cancel();
 				this.run();
-		}
-		
+			}
+		}*/
+
 		//attente en boucle de message de la part de l'arduino
-/*		while (true) {
+		/*		while (true) {
             try {
                 bytes = mmInStream.read(buffer);
-//envoyer qqc à la classe Lecture
+//envoyer qqc ï¿½ la classe Lecture
 
             } catch (IOException e) {
                 break;
             }
         }
-*/	}
+		 */	}
 	
+	/*
+	 * Chaque ID de commande correspond Ã  une commande envoyÃ©e :
+	 * 0 : lecture
+	 * 10 : pause
+	 * 50 : stop 
+	 * 126 : commande d'allumage
+	 */
+
+	public void lecture() {
+		byte[] commandePause = {0};
+		transmettre(commandePause);
+	}
 	
-	public void transmettre(byte[] buffer){
-		//éventuellement gérer les indices de début et de fin d'écriture,
-		//	ainsi que l'effacement des données écrites
-		//  (si utilisation d'un attribut buffer
+	public void pause() {
+		byte[] commandePause = {10};
+		transmettre(commandePause);
+	}
+	
+	public void stopp() {
+		byte[] commandePause = {50};
+		transmettre(commandePause);
+	}
+
+	public void envoyerCommande(Commande commande) {
+		byte[] bytesAEnvoyer = new byte[93]; // 6 : 1 pour l'ID commande, 4 pour le temps, 88 pour la couleur de chaque note
+		bytesAEnvoyer[0] = 126;
 		
+		// Conversion d'un int en 4 bytes		
+		int time = commande.getDebut();
+		bytesAEnvoyer[4] = (byte) (time % 256);
+		time /= 256;
+		bytesAEnvoyer[3] = (byte) (time % 256);
+		time /= 256;
+		bytesAEnvoyer[2] = (byte) (time % 256);
+		time /= 256;
+		bytesAEnvoyer[1] = (byte) time;
+		
+		// Copie du tableau de couleurs
+		char[] couleurs = commande.getCouleurs();
+		for (int i = 0 ; i < 88 ; i++) {
+			bytesAEnvoyer[i+5] = (byte) couleurs[i];
+		}
+		
+		transmettre(bytesAEnvoyer);
+	}
+
+	public void transmettre(byte[] buffer){
+		//ï¿½ventuellement gï¿½rer les indices de dï¿½but et de fin d'ï¿½criture,
+		//	ainsi que l'effacement des donnï¿½es ï¿½crites
+		//  (si utilisation d'un attribut buffer
+
 		try{
 			stream.write(buffer);
 			stream.flush();
-			} catch(IOException e){
-				this.cancel();
-				Log.e("My activity", "Erreur lors de l'écriture dans la socket\n"+e.getLocalizedMessage());
-			}
+		} catch(IOException e){
+			this.cancel();
+			Log.e("My activity", "Erreur lors de l'ï¿½criture dans la socket\n"+e.getLocalizedMessage());
+		}
 	}
 
 

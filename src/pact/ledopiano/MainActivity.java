@@ -120,11 +120,11 @@ public class MainActivity extends Activity implements View.OnClickListener, OnCl
 	public static void signal(ConnectedThread ct){
 		thread = ct;
 		thread.run();
-		
 	}
 	
-	
-	
+	public static ConnectedThread getThread(){
+		return thread;
+	}
 	
 	public void onPause(){
 		super.onPause();

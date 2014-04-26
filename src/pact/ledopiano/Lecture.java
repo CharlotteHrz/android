@@ -1,7 +1,17 @@
 package pact.ledopiano;
 
+//import lecture.FichierAudio;
+import java.io.IOException;
+import java.util.ArrayList;
+
+import lecture.FichierAudio;
+
+import harmonie.ChromaIntermediaire;
+import harmonie.Commande;
+import harmonie.CommandeAllumage;
+import harmonie.GrilleAccords;
+import Analyse.Chroma;
 import android.app.Activity;
-import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.widget.Button;
@@ -14,6 +24,8 @@ public class Lecture extends Activity implements View.OnClickListener {
 	private Button retour;
 	private TextView nom_morceau;
 	private Uri uri;
+	
+	//FichierAudio audio;
 	
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -31,26 +43,50 @@ public class Lecture extends Activity implements View.OnClickListener {
         nom_morceau.setText(uri.getLastPathSegment());
 		//nom_morceau.setText(uri.toString());
         
+        //audio = new FichierAudio("wav");
 	}
 
 	@Override
 	public void onClick(View v) {
 		switch(v.getId()){
 		case R.id.button1:
-			//mettre en play/pause
-			
-			Intent intent = new Intent(Intent.ACTION_RUN, uri);
-			startActivity(intent);
-	        
-			//Intent.CATEGORY_APP_MUSIC seulement à partir de l'api 15
-	        //garder en mémoire : Context -> bindService()
-			
+			//if (audio.isRunning()){
+				//MainActivity.thread.pause();
+			//}
+			MainActivity.getThread().lecture();
 			break;
 		case R.id.button2:
-			//faire stop
+			// Chargement du fichier
+			FichierAudio audio = null;
+			try {
+				audio = new FichierAudio (uri.getPath());
+				ArrayList<Chroma> chromaMorceau=audio.transformeeDeFourier();
+				// Calcul des chromas
+				ArrayList<Integer> bassePipeau = new ArrayList<Integer>();
+				for (int i = 0 ; i < 12 ; i++) {
+					bassePipeau.add(-1);
+				}
+				GrilleAccords grille = ChromaIntermediaire.AnalyseChroma(chromaMorceau, bassePipeau);
+				CommandeAllumage trouverAllumage = new CommandeAllumage(grille);
+				trouverAllumage.calculerCommandes();
+				ArrayList<Commande> commandes = trouverAllumage.getCommandes();
+				
+				// Envoi des commandes
+				for (Commande commande : commandes) {
+					MainActivity.getThread().envoyerCommande(commande);
+				}
+				
+				
+			} catch (IOException e) {
+				e.printStackTrace();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
 			break;
 		case R.id.button3:
-			//retour à MainActivity
+			this.onDestroy();
 		}
 		
 	}
