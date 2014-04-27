@@ -11,7 +11,6 @@ import org.apache.commons.math3.transform.FastFourierTransformer;
 import org.apache.commons.math3.transform.TransformType;
 
 import Analyse.Chroma;
-import Analyse.ChromasTheoriques;
 import Analyse.TableauNotes;
 
 public class FichierAudio {

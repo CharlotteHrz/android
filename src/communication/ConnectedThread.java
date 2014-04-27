@@ -37,16 +37,14 @@ public class ConnectedThread extends Thread {
 	
 	
 	public void run() {
-		while(true){
-			try {
+/*			try {
 				System.out.println(this.RXstream.readLine()+" Fin lecture\n");
 			} catch (ClosedByInterruptException ex){
 				Thread.currentThread().interrupt();
 			} catch (IOException e) {
 				System.out.println("erreur lecture");
 			}
-		}
-	}
+*/	}
 
 	public void lecture() {
 		byte[] commandePause = {0};

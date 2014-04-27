@@ -1,6 +1,7 @@
 package pact.ledopiano;
 
 //import lecture.FichierAudio;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -12,6 +13,7 @@ import harmonie.CommandeAllumage;
 import harmonie.GrilleAccords;
 import Analyse.Chroma;
 import android.app.Activity;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.widget.Button;
@@ -57,9 +59,9 @@ public class Lecture extends Activity implements View.OnClickListener {
 			break;
 		case R.id.button2:
 			// Chargement du fichier
-			FichierAudio audio = null;
+			//FichierAudio audio = null;
 			try {
-				audio = new FichierAudio (uri.getPath());
+				/*audio = new FichierAudio (uri.getPath());
 				ArrayList<Chroma> chromaMorceau=audio.transformeeDeFourier();
 				// Calcul des chromas
 				ArrayList<Integer> bassePipeau = new ArrayList<Integer>();
@@ -67,6 +69,19 @@ public class Lecture extends Activity implements View.OnClickListener {
 					bassePipeau.add(-1);
 				}
 				GrilleAccords grille = ChromaIntermediaire.AnalyseChroma(chromaMorceau, bassePipeau);
+				*/
+					
+				GrilleAccords grille = null;
+				try {
+					grille = new GrilleAccords("data/grilles/let_it_be.txt");
+				} catch (FileNotFoundException e) {
+					System.out.print(e);
+					e.printStackTrace();
+				} catch (IOException e) {
+					System.out.print(e);
+					e.printStackTrace();
+				}
+						
 				CommandeAllumage trouverAllumage = new CommandeAllumage(grille);
 				trouverAllumage.calculerCommandes();
 				ArrayList<Commande> commandes = trouverAllumage.getCommandes();
@@ -77,8 +92,6 @@ public class Lecture extends Activity implements View.OnClickListener {
 				}
 				
 				
-			} catch (IOException e) {
-				e.printStackTrace();
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -86,7 +99,8 @@ public class Lecture extends Activity implements View.OnClickListener {
 			
 			break;
 		case R.id.button3:
-			this.onDestroy();
+			Intent intent = new Intent(this, MainActivity.class);
+			startActivity(intent);
 		}
 		
 	}

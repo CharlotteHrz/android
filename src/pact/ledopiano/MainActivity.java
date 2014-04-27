@@ -46,7 +46,7 @@ public class MainActivity extends Activity implements View.OnClickListener, OnCl
 		if(adapter.isEnabled()==false){
 			Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
 			startActivityForResult(enableBtIntent, code_bluetooth);
-			}
+		}
 		
 		com = new Com();
 	}

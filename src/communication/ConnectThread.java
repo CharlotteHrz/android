@@ -36,7 +36,7 @@ public class ConnectThread extends Thread {
         } catch (IOException connectException) {
         	Log.e("ConnectThread","Erreur ouverture Socket\n"+connectException);
             this.cancel();
-            
+            this.run();
         }
         
         new ConnectedThread(mmSocket);

@@ -36,10 +36,14 @@ public class Choix extends Activity implements View.OnClickListener {
 	@Override
 	public void onClick(View v) {
 		if(v == findViewById(R.id.button8)){
-			Intent intent = new Intent(this, Lecture.class);
+			if (resultUri == null){
+				textView.setText("Pas de morceau sélectionné !");
+			} else {
+				Intent intent = new Intent(this, Lecture.class);
 			
-			intent.putExtra("morceau", resultUri);
-		    startActivity(intent);
+				intent.putExtra("morceau", resultUri);
+				startActivity(intent);
+			}
 		}
 		
 		
