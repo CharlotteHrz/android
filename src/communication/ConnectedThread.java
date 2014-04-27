@@ -7,23 +7,20 @@ import java.io.OutputStream;
 import java.io.InputStream;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
-import java.nio.Buffer;
+import java.nio.channels.ClosedByInterruptException;
 
 import pact.ledopiano.MainActivity;
 
 import android.bluetooth.BluetoothSocket;
-import android.util.Log;
 
 public class ConnectedThread extends Thread {
 	private final BluetoothSocket socket;
 	private final OutputStream stream;
 	private final BufferedReader RXstream;
-	//Peut-être mettre un attribut supplémentaire = buffer ?
 	
 	public ConnectedThread(BluetoothSocket bs) {
 		socket = bs;
-        System.out.println("La Socket est " + socket);
+        System.out.println("arrivée dans ConnectedThread");
 		OutputStream toolStream = null;
 		InputStream RXstreamtmp=null;
 		try{
@@ -33,23 +30,21 @@ public class ConnectedThread extends Thread {
 				MainActivity.problemeDeConnexion();
 			}
 		stream = toolStream;
-		RXstream=new BufferedReader(new InputStreamReader(RXstreamtmp));
-		System.out.println("Au début de CtedThread, le stream est " + stream);
-		
+		RXstream = new BufferedReader(new InputStreamReader(RXstreamtmp));
 		//Se signaler à la méthode main
 		MainActivity.signal(this);
-		
 	}
 	
 	
 	public void run() {
-		this.transmettre(new byte[] {1,2,1,1});
-		try {
-			System.out.println("essai de transmission");
-			System.out.println(this.RXstream.readLine()+" Fin lecture\n");
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			System.out.println("erreur lecture");
+		while(true){
+			try {
+				System.out.println(this.RXstream.readLine()+" Fin lecture\n");
+			} catch (ClosedByInterruptException ex){
+				Thread.currentThread().interrupt();
+			} catch (IOException e) {
+				System.out.println("erreur lecture");
+			}
 		}
 	}
 
@@ -92,10 +87,6 @@ public class ConnectedThread extends Thread {
 	}
 
 	public void transmettre(byte[] buffer){
-		//ï¿½ventuellement gï¿½rer les indices de dï¿½but et de fin d'ï¿½criture,
-		//	ainsi que l'effacement des donnï¿½es ï¿½crites
-		//  (si utilisation d'un attribut buffer
-
 		try{
 			stream.write(buffer);
 			stream.flush();
@@ -103,8 +94,6 @@ public class ConnectedThread extends Thread {
 			this.cancel();
 		}
 	}
-
-
 
 	public void cancel(){
 		try {

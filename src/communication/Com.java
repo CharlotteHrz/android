@@ -1,23 +1,14 @@
 package communication;
 
-import java.util.Set;
-
-import pact.ledopiano.MainActivity;
 import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
-import android.util.Log;
 
 public class Com extends Activity {
 	final BluetoothAdapter adapter;
 	
 	public Com() {
 		adapter = BluetoothAdapter.getDefaultAdapter();
-		if (adapter.isEnabled()){
-			MainActivity.etatBluetooth(true);}
-		else{
-			MainActivity.etatBluetooth(false);
-		}
 	}
 	
 	public void connexionArduino() {

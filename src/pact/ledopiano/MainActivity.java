@@ -46,7 +46,6 @@ public class MainActivity extends Activity implements View.OnClickListener, OnCl
 		if(adapter.isEnabled()==false){
 			Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
 			startActivityForResult(enableBtIntent, code_bluetooth);
-		//empêche l'appel au bluetooth pendant l'allumage
 			}
 		
 		com = new Com();
@@ -71,6 +70,7 @@ public class MainActivity extends Activity implements View.OnClickListener, OnCl
 			startActivity(intent3);
 			break;
 		case R.id.checkBox1:
+			//empêche l'appel au bluetooth pendant l'allumage
 			while(adapter.isEnabled()==false){}
 			com.connexionArduino();
 			break;
@@ -105,8 +105,10 @@ public class MainActivity extends Activity implements View.OnClickListener, OnCl
 	//afficher un message pour signaler un pb de bluetooth
 	public static void problemeDeConnexion(){
 		MainActivity.etatBluetooth(false);
-				//cThread.cancel();	moyen... (car boucle !)
-				//thread.cancel();	moyen...
+		thread.interrupt();
+		cThread.interrupt();
+		thread = null;
+		cThread = null;
 		//puis retenter la connexion ?
 		com.connexionArduino();
 		//ou afficher une fenêtre à l'utilisateur ?
@@ -119,6 +121,7 @@ public class MainActivity extends Activity implements View.OnClickListener, OnCl
 	
 	public static void signal(ConnectedThread ct){
 		thread = ct;
+		thread.transmettre(new byte[] {1,2,1,1});
 		thread.run();
 	}
 	
@@ -148,20 +151,15 @@ public class MainActivity extends Activity implements View.OnClickListener, OnCl
 	
 	public void onDestroy() {
 		adapter.disable();
-		
-		if (cThread != null) {
-			cThread.cancel();
-			cThread.interrupt();
-		}
-		
 		if (thread != null) {
 			thread.cancel();
 			thread.interrupt();
 		}
-		
+		if (cThread != null) {
+			cThread.cancel();
+			cThread.interrupt();
+		}
 	    super.onDestroy();
-		//il faudra peut-être gérer la fermeture de Threads,
-		//à voir avec le module Communication
 	}
 
 	@Override
