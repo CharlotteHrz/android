@@ -121,7 +121,7 @@ public class MainActivity extends Activity implements View.OnClickListener, OnCl
 	
 	public static void signal(ConnectedThread ct){
 		thread = ct;
-		thread.transmettre(new byte[] {1,2,1,1});
+		//thread.transmettre(new byte[] {1,2,1,1});
 		thread.run();
 	}
 	
@@ -150,7 +150,7 @@ public class MainActivity extends Activity implements View.OnClickListener, OnCl
 	}
 	
 	public void onDestroy() {
-		adapter.disable();
+/*		adapter.disable();
 		if (thread != null) {
 			thread.cancel();
 			thread.interrupt();
@@ -159,7 +159,7 @@ public class MainActivity extends Activity implements View.OnClickListener, OnCl
 			cThread.cancel();
 			cThread.interrupt();
 		}
-	    super.onDestroy();
+*/	    super.onDestroy();
 	}
 
 	@Override

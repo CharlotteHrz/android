@@ -9,20 +9,20 @@ public class CommandeAllumage {
 	/* Couleurs de notes par défaut.
 	 * Elles sont données par ordre de priorité croissant 	
 	 */
-	private char couleurGamme;
-	private char couleurAccord; // Moins utile
-	private char couleurNotesFortes;
-	private char couleurFondamentale;
+	private byte couleurGamme;
+	private byte couleurAccord; // Moins utile
+	private byte couleurNotesFortes;
+	private byte couleurFondamentale;
 
 	public CommandeAllumage(GrilleAccords grille) {
 		this.grille = grille;
 		
 		commandes = new ArrayList<Commande>();
 		
-		couleurGamme = (char) 127;
-		couleurAccord = (char) 80;
-		couleurNotesFortes = (char) 60;
-		couleurFondamentale = (char) 35;
+		couleurGamme = (byte) 127;
+		couleurAccord = (byte) 80;
+		couleurNotesFortes = (byte) 60;
+		couleurFondamentale = (byte) 35;
 	}
 	
 	public void calculerCommandes() {

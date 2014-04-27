@@ -50,50 +50,51 @@ public class Accord {
 	}
 	
 	private void trouverFondamentale() {
-		if (lettreFondamentale.equals("A"))
+		if (lettreFondamentale.equals(new String("A")))
 			fondamentale = 0;
-		if (lettreFondamentale.equals("Bb"))
+		else if (lettreFondamentale.equals("Bb"))
 			fondamentale = 1;
-		if (lettreFondamentale.equals("B"))
+		else if (lettreFondamentale.equals("B"))
 			fondamentale = 2;
-		if (lettreFondamentale.equals("C"))
+		else if (lettreFondamentale.equals("C"))
 			fondamentale = 3;
-		if (lettreFondamentale.equals("C#") || lettreFondamentale.equals("Db"))
+		else if (lettreFondamentale.equals("C#") || lettreFondamentale.equals("Db"))
 			fondamentale = 4;
-		if (lettreFondamentale.equals("D"))
+		else if (lettreFondamentale.equals("D"))
 			fondamentale = 5;
-		if (lettreFondamentale.equals("Eb"))
+		else if (lettreFondamentale.equals("Eb"))
 			fondamentale = 6;
-		if (lettreFondamentale.equals("E"))
+		else if (lettreFondamentale.equals("E"))
 			fondamentale = 7;
-		if (lettreFondamentale.equals("F"))
+		else if (lettreFondamentale.equals("F"))
 			fondamentale = 8;
-		if (lettreFondamentale.equals("F#") || lettreFondamentale.equals("Gb"))
+		else if (lettreFondamentale.equals("F#") || lettreFondamentale.equals("Gb"))
 			fondamentale = 9;
-		if (lettreFondamentale.equals("G"))
+		else if (lettreFondamentale.equals("G"))
 			fondamentale = 10;
-		if (lettreFondamentale.equals("Ab"))
+		else if (lettreFondamentale.equals("Ab"))
 			fondamentale = 11;
-		else
-			System.out.println("Tonalité inconnue :" + lettreFondamentale);
+		else {
+			System.out.println("Tonalité inconnue :" + "'" + lettreFondamentale + "'");
+		}
 	}
 	
 	private void trouverNotes() { // En fonction du chiffrage
 		if (chiffrage.equals(""))
 			insererNotes(new int[]{0,4,7});
-		if (chiffrage.equals("-"))
+		else if (chiffrage.equals("-"))
 			insererNotes(new int[]{0,3,7});
-		if (chiffrage.equals("M7"))
+		else if (chiffrage.equals("M7"))
 			insererNotes(new int[]{0,4,7,11});
-		if (chiffrage.equals("6"))
+		else if (chiffrage.equals("6"))
 			insererNotes(new int[]{0,4,9});
-		if (chiffrage.equals("7"))
+		else if (chiffrage.equals("7"))
 			insererNotes(new int[]{0,4,7,10});
-		if (chiffrage.equals("7sus4"))
+		else if (chiffrage.equals("7sus4"))
 			insererNotes(new int[]{0,5,7,10});
-		if (chiffrage.equals("-7(b5)"))
+		else if (chiffrage.equals("-7(b5)"))
 			insererNotes(new int[]{0,4,6,10});
-		if (chiffrage.equals("+7"))
+		else if (chiffrage.equals("+7"))
 			insererNotes(new int[]{0,4,8,10});
 		else
 			System.out.println("Le chiffrage entré est foireux");

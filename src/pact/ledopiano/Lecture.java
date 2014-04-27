@@ -41,8 +41,8 @@ public class Lecture extends Activity implements View.OnClickListener {
 		retour.setOnClickListener(this);
 		
 		nom_morceau = (TextView) findViewById(R.id.textView2);
-		Uri uri = getIntent().getParcelableExtra("morceau");
-        nom_morceau.setText(uri.getLastPathSegment());
+		//Uri uri = getIntent().getParcelableExtra("morceau");
+        //nom_morceau.setText(uri.getLastPathSegment());
 		//nom_morceau.setText(uri.toString());
         
         //audio = new FichierAudio("wav");
@@ -70,27 +70,22 @@ public class Lecture extends Activity implements View.OnClickListener {
 				}
 				GrilleAccords grille = ChromaIntermediaire.AnalyseChroma(chromaMorceau, bassePipeau);
 				*/
-					
+				
+				//MainActivity.getThread().stopp();
+				
 				GrilleAccords grille = null;
-				try {
-					grille = new GrilleAccords("data/grilles/let_it_be.txt");
-				} catch (FileNotFoundException e) {
-					System.out.print(e);
-					e.printStackTrace();
-				} catch (IOException e) {
-					System.out.print(e);
-					e.printStackTrace();
-				}
-						
+				grille = new GrilleAccords(this.getResources().openRawResource(R.raw.let_it_be));
 				CommandeAllumage trouverAllumage = new CommandeAllumage(grille);
 				trouverAllumage.calculerCommandes();
 				ArrayList<Commande> commandes = trouverAllumage.getCommandes();
 				
 				// Envoi des commandes
 				for (Commande commande : commandes) {
+					Thread.sleep(200);
 					MainActivity.getThread().envoyerCommande(commande);
 				}
 				
+				MainActivity.getThread().transmissionFinie();
 				
 			} catch (Exception e) {
 				// TODO Auto-generated catch block

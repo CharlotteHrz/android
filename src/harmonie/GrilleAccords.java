@@ -3,6 +3,8 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 
@@ -26,6 +28,17 @@ public class GrilleAccords {
 	public GrilleAccords(String filename) throws FileNotFoundException, IOException {
 		accords = new ArrayList<Accord>();
 		loadGrille(filename);
+	}
+	
+	public GrilleAccords(InputStream is) {
+		accords = new ArrayList<Accord>();
+		try {
+			loadGrille(is);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public GrilleAccords(int tonalite, boolean majeur) {
@@ -128,6 +141,47 @@ public class GrilleAccords {
 			e1.printStackTrace();
 			throw e1;
 		}
+		
+		try {
+			if (br.readLine().equals("EntreeMain")) {
+				entreeMain = true;
+				tonalite = Integer.valueOf(br.readLine()).intValue();
+				majeur = Boolean.valueOf(br.readLine()).booleanValue();
+				tempo = Double.valueOf(br.readLine()).doubleValue();
+				chiffrage = Integer.valueOf(br.readLine()).intValue();
+				
+				accords.clear();
+				
+				String line = br.readLine();
+				while (line != null) {
+					accords.add(new Accord(line));
+					line = br.readLine();
+				}
+			}
+			
+			else {
+				br.close();
+				throw new IOException("Grille invalide");
+			}
+			
+		} catch (NumberFormatException e) {
+			System.out.println("Fichier grille corrompu");
+			e.printStackTrace();
+			br.close();
+			throw new IOException("Grille invalide");
+		} catch (IOException e) {
+			System.out.println("Je sais pas ce que c'est cette erreur");
+			e.printStackTrace();
+			throw new IOException("Grille invalide");
+		}
+		
+		br.close();
+		
+	}
+	
+	public void loadGrille(InputStream is) throws FileNotFoundException, IOException {
+		BufferedReader br = null;
+		br = new BufferedReader(new InputStreamReader(is));
 		
 		try {
 			if (br.readLine().equals("EntreeMain")) {

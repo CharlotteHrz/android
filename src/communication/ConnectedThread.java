@@ -47,7 +47,7 @@ public class ConnectedThread extends Thread {
 */	}
 
 	public void lecture() {
-		byte[] commandePause = {0};
+		byte[] commandePause = {5};
 		transmettre(commandePause);
 	}
 	
@@ -58,6 +58,11 @@ public class ConnectedThread extends Thread {
 	
 	public void stopp() {
 		byte[] commandePause = {50};
+		transmettre(commandePause);
+	}
+	
+	public void transmissionFinie() {
+		byte[] commandePause = {70};
 		transmettre(commandePause);
 	}
 
@@ -76,9 +81,15 @@ public class ConnectedThread extends Thread {
 		bytesAEnvoyer[1] = (byte) time;
 		
 		// Copie du tableau de couleurs
-		char[] couleurs = commande.getCouleurs();
+		byte[] couleurs = commande.getCouleurs();
 		for (int i = 0 ; i < 88 ; i++) {
-			bytesAEnvoyer[i+5] = (byte) couleurs[i];
+			bytesAEnvoyer[i+5] = couleurs[i];
+		}
+		
+		for (int i = 0 ; i < 93 ; i++) {
+			System.out.print(i);
+			System.out.print(" ");
+			System.out.println(bytesAEnvoyer[i]);
 		}
 		
 		transmettre(bytesAEnvoyer);
