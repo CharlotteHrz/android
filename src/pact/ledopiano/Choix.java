@@ -37,11 +37,11 @@ public class Choix extends Activity implements View.OnClickListener {
 	public void onClick(View v) {
 		if(v == findViewById(R.id.button8)){
 			//if (resultUri == null){
-			//	textView.setText("Pas de morceau sélectionné !");
+				//textView.setText("Pas de morceau sélectionné !");
 			//} else {
 				Intent intent = new Intent(this, Lecture.class);
 			
-				//intent.putExtra("morceau", resultUri);
+				intent.putExtra("morceau", resultUri);
 				startActivity(intent);
 			//}
 		}
