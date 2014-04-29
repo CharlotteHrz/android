@@ -51,8 +51,7 @@ public class Choix extends Activity implements View.OnClickListener {
 		    startActivity(intent);
 		}
 		
-		
-		else{
+		else {
 			Uri uri_music = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
 			Intent intent = new Intent(Intent.ACTION_PICK, uri_music);
 			
