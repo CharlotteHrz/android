@@ -1,7 +1,20 @@
 package pact.ledopiano;
 
+//import lecture.FichierAudio;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.ArrayList;
+
+import lecture.FichierAudio;
+
+import harmonie.ChromaIntermediaire;
+import harmonie.Commande;
+import harmonie.CommandeAllumage;
+import harmonie.GrilleAccords;
+import Analyse.Chroma;
 import android.app.Activity;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.widget.Button;
@@ -15,6 +28,10 @@ public class Lecture extends Activity implements View.OnClickListener {
 	private TextView nom_morceau;
 	private Uri uri;
 	
+	//FichierAudio audio;
+	
+	private MediaPlayer player;
+	
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.lecture);
@@ -27,34 +44,102 @@ public class Lecture extends Activity implements View.OnClickListener {
 		retour.setOnClickListener(this);
 		
 		nom_morceau = (TextView) findViewById(R.id.textView2);
-		Uri uri = getIntent().getParcelableExtra("morceau");
-        nom_morceau.setText(uri.getLastPathSegment());
-		//nom_morceau.setText(uri.toString());
+		uri = getIntent().getParcelableExtra("morceau");
+        nom_morceau.setText(uri.toString());
         
+        //audio = new FichierAudio("wav");
 	}
 
 	@Override
 	public void onClick(View v) {
 		switch(v.getId()){
 		case R.id.button1:
-			//mettre en play/pause
-			
-			Intent intent = new Intent(Intent.ACTION_RUN, uri);
-			startActivity(intent);
-	        
-			//Intent.CATEGORY_APP_MUSIC seulement à partir de l'api 15
-	        //garder en mémoire : Context -> bindService()
-			
+			if(player == null){}
+			else{
+				//if (audio.isRunning()){
+				if (player.isPlaying()){
+					//MainActivity.thread.pause();
+					player.pause();
+				} else {
+					//MainActivity.getThread().lecture();
+					player.start();
+				}
+			}
 			break;
 		case R.id.button2:
-			//faire stop
+			//première utilisation
+			if (player == null){
+				this.analyse();
+				player = MediaPlayer.create(getApplicationContext(), uri);
+				player.setScreenOnWhilePlaying(true);
+				try {
+					player.prepare();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			//correspond au bouton stop
+			} else {
+				player.stop();
+				try {
+					player.prepare();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				player.seekTo(0);
+			}
 			break;
 		case R.id.button3:
-			Intent intent2 = new Intent(this, MainActivity.class);
-//			intent2.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-			startActivity(intent2);
+			Intent intent = new Intent(this, MainActivity.class);
+			startActivity(intent);
 		}
 		
 	}
+	
+	private void analyse(){
+
+		// Chargement du fichier
+		FichierAudio audio = null;
+		try {
+			/*audio = new FichierAudio (uri.getPath());
+			ArrayList<Chroma> chromaMorceau=audio.transformeeDeFourier();
+			// Calcul des chromas
+			ArrayList<Integer> bassePipeau = new ArrayList<Integer>();
+			for (int i = 0 ; i < 12 ; i++) {
+				bassePipeau.add(-1);
+			}
+			GrilleAccords grille = ChromaIntermediaire.AnalyseChroma(chromaMorceau, bassePipeau);
+			*/
+			
+			//MainActivity.getThread().stopp();
+			
+			GrilleAccords grille = null;
+			grille = new GrilleAccords(this.getResources().openRawResource(R.raw.let_it_be));
+			CommandeAllumage trouverAllumage = new CommandeAllumage(grille);
+			trouverAllumage.calculerCommandes();
+			ArrayList<Commande> commandes = trouverAllumage.getCommandes();
+			
+			// Envoi des commandes
+			for (Commande commande : commandes) {
+				Thread.sleep(2000);
+				MainActivity.getThread().envoyerCommande(commande);
+			}
+			
+			MainActivity.getThread().transmissionFinie();
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	
+	@Override
+	protected void onDestroy() {
+	  if(player != null) {
+	    player.release();
+	    player = null;
+	  }
+	}
+	
 
 }

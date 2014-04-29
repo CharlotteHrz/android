@@ -1,15 +1,11 @@
 package pact.ledopiano;
 
-import java.io.UnsupportedEncodingException;
-
 import communication.Com;
 import communication.ConnectThread;
 import communication.ConnectedThread;
 
 import android.os.Bundle;
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.app.AlertDialog.Builder;
 import android.bluetooth.BluetoothAdapter;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
@@ -25,7 +21,7 @@ public class MainActivity extends Activity implements View.OnClickListener, OnCl
 	private static CheckBox bluetooth;
 	private Button quit;
 	
-	private Com com;
+	private static Com com;
 	private static ConnectThread cThread;
 	private static ConnectedThread thread;
 	private final BluetoothAdapter adapter = BluetoothAdapter.getDefaultAdapter();
@@ -46,6 +42,11 @@ public class MainActivity extends Activity implements View.OnClickListener, OnCl
 		bluetooth.setOnClickListener(this);
 		quit = (Button) findViewById(R.id.button5);
 		quit.setOnClickListener(this);
+
+		if(adapter.isEnabled()==false){
+			Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+			startActivityForResult(enableBtIntent, code_bluetooth);
+		}
 		
 		com = new Com();
 	}
@@ -69,15 +70,8 @@ public class MainActivity extends Activity implements View.OnClickListener, OnCl
 			startActivity(intent3);
 			break;
 		case R.id.checkBox1:
-		//devrait être dans la classe Com mais n'y fonctionne pas
-			//(pb de thread, de classe fille ?
-		    Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-		    startActivityForResult(enableBtIntent, code_bluetooth);
-		//empêche l'appel au bluetooth pendant l'allumage
-		    while(adapter.isEnabled()==false){}
-			
-			//com.allumerBluetooth();
-			
+			//empêche l'appel au bluetooth pendant l'allumage
+			while(adapter.isEnabled()==false){}
 			com.connexionArduino();
 			break;
 		case R.id.button5:
@@ -94,7 +88,7 @@ public class MainActivity extends Activity implements View.OnClickListener, OnCl
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 	    if (requestCode == code_bluetooth) {
 	        if (resultCode == RESULT_OK) {
-	        	MainActivity.etatBluetooth(true);
+	        	System.out.println("bluetoothAdapter allumé");
 	        }
 	        else MainActivity.problemeDeConnexion();
 	    }
@@ -107,10 +101,17 @@ public class MainActivity extends Activity implements View.OnClickListener, OnCl
 		bluetooth.setChecked(b);
 	}
 
-			
+
+	//afficher un message pour signaler un pb de bluetooth
 	public static void problemeDeConnexion(){
-		//Le but est d'afficher un message à l'utilisateur pour lui dire qu'il y a un problème avec le bluetooth.
 		MainActivity.etatBluetooth(false);
+		thread.interrupt();
+		cThread.interrupt();
+		thread = null;
+		cThread = null;
+		//puis retenter la connexion ?
+		com.connexionArduino();
+		//ou afficher une fenêtre à l'utilisateur ?
 	}
 
 	public static void signal(ConnectThread ct){
@@ -120,17 +121,13 @@ public class MainActivity extends Activity implements View.OnClickListener, OnCl
 	
 	public static void signal(ConnectedThread ct){
 		thread = ct;
-		
-		try {
-			thread.transmettre("0x01".getBytes("ASCII"));
-		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		//thread.transmettre(new byte[] {1,2,1,1});
+		thread.run();
 	}
 	
-	
-	
+	public static ConnectedThread getThread(){
+		return thread;
+	}
 	
 	public void onPause(){
 		super.onPause();
@@ -150,6 +147,19 @@ public class MainActivity extends Activity implements View.OnClickListener, OnCl
 	public void onRestart(){
 		super.onRestart();
 		//RAS
+	}
+	
+	public void onDestroy() {
+/*		adapter.disable();
+		if (thread != null) {
+			thread.cancel();
+			thread.interrupt();
+		}
+		if (cThread != null) {
+			cThread.cancel();
+			cThread.interrupt();
+		}
+*/	    super.onDestroy();
 	}
 
 	@Override
