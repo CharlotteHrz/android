@@ -44,9 +44,8 @@ public class Lecture extends Activity implements View.OnClickListener {
 		retour.setOnClickListener(this);
 		
 		nom_morceau = (TextView) findViewById(R.id.textView2);
-		//uri = getIntent().getParcelableExtra("morceau");
-        //nom_morceau.setText(uri.getLastPathSegment());
-		//nom_morceau.setText(uri.toString());
+		uri = getIntent().getParcelableExtra("morceau");
+        nom_morceau.setText(uri.toString());
         
         //audio = new FichierAudio("wav");
 	}
@@ -72,6 +71,7 @@ public class Lecture extends Activity implements View.OnClickListener {
 			if (player == null){
 				this.analyse();
 				player = MediaPlayer.create(getApplicationContext(), uri);
+				player.setScreenOnWhilePlaying(true);
 				try {
 					player.prepare();
 				} catch (Exception e) {
@@ -131,6 +131,14 @@ public class Lecture extends Activity implements View.OnClickListener {
 			e.printStackTrace();
 		}
 		
+	}
+	
+	@Override
+	protected void onDestroy() {
+	  if(player != null) {
+	    player.release();
+	    player = null;
+	  }
 	}
 	
 
