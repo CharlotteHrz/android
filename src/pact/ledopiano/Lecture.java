@@ -58,10 +58,10 @@ public class Lecture extends Activity implements View.OnClickListener {
 			else{
 				//if (audio.isRunning()){
 				if (player.isPlaying()){
-					//MainActivity.thread.pause();
+					MainActivity.getThread().pause();
 					player.pause();
 				} else {
-					//MainActivity.getThread().lecture();
+					MainActivity.getThread().lecture();
 					player.start();
 				}
 			}
@@ -79,12 +79,7 @@ public class Lecture extends Activity implements View.OnClickListener {
 				}
 			//correspond au bouton stop
 			} else {
-				player.stop();
-				try {
-					player.prepare();
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
+				player.pause();
 				player.seekTo(0);
 			}
 			break;
@@ -100,7 +95,7 @@ public class Lecture extends Activity implements View.OnClickListener {
 		// Chargement du fichier
 		FichierAudio audio = null;
 		try {
-			/*audio = new FichierAudio (uri.getPath());
+			audio = new FichierAudio (uri.getPath());
 			ArrayList<Chroma> chromaMorceau=audio.transformeeDeFourier();
 			// Calcul des chromas
 			ArrayList<Integer> bassePipeau = new ArrayList<Integer>();
@@ -108,12 +103,12 @@ public class Lecture extends Activity implements View.OnClickListener {
 				bassePipeau.add(-1);
 			}
 			GrilleAccords grille = ChromaIntermediaire.AnalyseChroma(chromaMorceau, bassePipeau);
-			*/
+			
 			
 			//MainActivity.getThread().stopp();
 			
-			GrilleAccords grille = null;
-			grille = new GrilleAccords(this.getResources().openRawResource(R.raw.let_it_be));
+			//GrilleAccords grille = null;
+			//grille = new GrilleAccords(this.getResources().openRawResource(R.raw.let_it_be));
 			CommandeAllumage trouverAllumage = new CommandeAllumage(grille);
 			trouverAllumage.calculerCommandes();
 			ArrayList<Commande> commandes = trouverAllumage.getCommandes();
