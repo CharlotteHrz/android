@@ -19,6 +19,7 @@ public class MainActivity extends Activity implements View.OnClickListener, OnCl
 	private Button grille;
 	private Button gamme;
 	private static CheckBox bluetooth;
+	private Button quit;
 	
 	private static Com com;
 	private static ConnectThread cThread;
@@ -39,6 +40,8 @@ public class MainActivity extends Activity implements View.OnClickListener, OnCl
 		gamme.setOnClickListener(this);
 		bluetooth = (CheckBox) findViewById(R.id.checkBox1);
 		bluetooth.setOnClickListener(this);
+		quit = (Button) findViewById(R.id.button5);
+		quit.setOnClickListener(this);
 
 		if(adapter.isEnabled()==false){
 			Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
@@ -52,12 +55,12 @@ public class MainActivity extends Activity implements View.OnClickListener, OnCl
 	public void onClick(View v) {
 		switch(v.getId()){
 		case R.id.button1:
-			//ouverture d'une nouvelle activitï¿½
-			Intent intent = new Intent(this, Choix.class);
-			startActivity(intent);
+			//ouverture d'une nouvelle activité
+			Intent intent1 = new Intent(this, Choix.class);
+			startActivity(intent1);
 			break;
 		case R.id.button2:
-			//passage direct ï¿½ la fenï¿½tre montrant la grille d'accord
+			//passage direct à la fenêtre montrant la grille d'accord
 			Intent intent2 = new Intent(this, Grille.class);
 			startActivity(intent2);
 			break;
@@ -67,10 +70,16 @@ public class MainActivity extends Activity implements View.OnClickListener, OnCl
 			startActivity(intent3);
 			break;
 		case R.id.checkBox1:
-			//empï¿½che l'appel au bluetooth pendant l'allumage
+			//empêche l'appel au bluetooth pendant l'allumage
 			while(adapter.isEnabled()==false){}
 			com.connexionArduino();
 			break;
+		case R.id.button5:
+			this.onPause();
+			this.onStop();
+			this.onDestroy();
+			//
+			this.finish();
 		}
 		
 	}
@@ -79,7 +88,7 @@ public class MainActivity extends Activity implements View.OnClickListener, OnCl
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 	    if (requestCode == code_bluetooth) {
 	        if (resultCode == RESULT_OK) {
-	        	System.out.println("bluetoothAdapter allumï¿½");
+	        	System.out.println("bluetoothAdapter allumé");
 	        }
 	        else MainActivity.problemeDeConnexion();
 	    }
@@ -87,7 +96,7 @@ public class MainActivity extends Activity implements View.OnClickListener, OnCl
 	
 	
 	
-	//Cocher ou dï¿½cocher le bouton bluetooth si besoin est.
+	//Cocher ou décocher le bouton bluetooth si besoin est.
 	public static void etatBluetooth(boolean b) {
 		bluetooth.setChecked(b);
 	}
@@ -102,7 +111,7 @@ public class MainActivity extends Activity implements View.OnClickListener, OnCl
 		cThread = null;
 		//puis retenter la connexion ?
 		com.connexionArduino();
-		//ou afficher une fenï¿½tre ï¿½ l'utilisateur ?
+		//ou afficher une fenêtre à l'utilisateur ?
 	}
 
 	public static void signal(ConnectThread ct){
@@ -122,12 +131,12 @@ public class MainActivity extends Activity implements View.OnClickListener, OnCl
 	
 	public void onPause(){
 		super.onPause();
-		//peut-ï¿½tre ï¿½teindre le bluetooth ?
+		//peut-être éteindre le bluetooth ?
 	}
 	
 	public void onResume(){
 		super.onResume();
-		//peut-ï¿½tre rallumer le bluetooth ?
+		//peut-être rallumer le bluetooth ?
 	}
 	
 	public void onStop(){
@@ -154,11 +163,10 @@ public class MainActivity extends Activity implements View.OnClickListener, OnCl
 	}
 
 	@Override
-	public void onClick(DialogInterface dialog, int which) {
+	public void onClick(DialogInterface arg0, int arg1) {
 		// TODO Auto-generated method stub
 		
 	}
-
 
 	
 	
