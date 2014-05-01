@@ -1,8 +1,6 @@
 package pact.ledopiano;
 
 //import lecture.FichierAudio;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.ArrayList;
 
 import lecture.FichierAudio;
@@ -13,7 +11,6 @@ import harmonie.CommandeAllumage;
 import harmonie.GrilleAccords;
 import Analyse.Chroma;
 import android.app.Activity;
-import android.content.Intent;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
@@ -24,7 +21,6 @@ import android.view.View;
 public class Lecture extends Activity implements View.OnClickListener {
 	private Button play;
 	private Button stop;
-	private Button retour;
 	private TextView nom_morceau;
 	private Uri uri;
 	
@@ -43,7 +39,7 @@ public class Lecture extends Activity implements View.OnClickListener {
 		
 		nom_morceau = (TextView) findViewById(R.id.textView2);
 		uri = getIntent().getParcelableExtra("morceau");
-        nom_morceau.setText(uri.toString());
+        nom_morceau.setText(uri.getPath());
         
         //audio = new FichierAudio("wav");
 	}
@@ -56,10 +52,10 @@ public class Lecture extends Activity implements View.OnClickListener {
 			else{
 				//if (audio.isRunning()){
 				if (player.isPlaying()){
-					MainActivity.getThread().pause();
+					//MainActivity.getThread().pause();
 					player.pause();
 				} else {
-					MainActivity.getThread().lecture();
+					//MainActivity.getThread().lecture();
 					player.start();
 				}
 			}
@@ -67,7 +63,7 @@ public class Lecture extends Activity implements View.OnClickListener {
 		case R.id.button2:
 			//première utilisation
 			if (player == null){
-				this.analyse();
+				//this.analyse();
 				player = MediaPlayer.create(getApplicationContext(), uri);
 				player.setScreenOnWhilePlaying(true);
 				try {
@@ -128,6 +124,7 @@ public class Lecture extends Activity implements View.OnClickListener {
 	  if(player != null) {
 	    player.release();
 	    player = null;
+	    super.onDestroy();
 	  }
 	}
 	

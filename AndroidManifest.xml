@@ -18,8 +18,7 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name="pact.ledopiano.MainActivity"
-            android:label="@string/app_name"
-             android:launchMode="singleTask" >
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -28,32 +27,27 @@
         </activity>
         
         <activity
-            android:name="pact.ledopiano.Choix"
-            android:launchMode="singleTask">
+            android:name="pact.ledopiano.Choix">
             
         </activity>
         
         <activity
-            android:name="pact.ledopiano.Bibliotheque"
-            android:launchMode="singleTask">
+            android:name="pact.ledopiano.Bibliotheque">
             
         </activity>
         
         <activity
-            android:name="pact.ledopiano.Lecture"
-            android:launchMode="singleTask">
+            android:name="pact.ledopiano.Lecture">
                         
         </activity>
         
         <activity 
-            android:name="pact.ledopiano.Grille"
-            android:launchMode="singleTask">
+            android:name="pact.ledopiano.Grille">
             
         </activity>
         
         <activity
-            android:name="pact.ledopiano.Gamme"
-            android:launchMode="singleTask">
+            android:name="pact.ledopiano.Gamme">
             
         </activity>
         

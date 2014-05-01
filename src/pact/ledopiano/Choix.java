@@ -46,6 +46,7 @@ public class Choix extends Activity implements View.OnClickListener {
 	@Override
 	public void onClick(View v) {
 		if(v == findViewById(R.id.button8)){
+			//aller à l'activité Lecture
 			if (resultUri == null){
 				textView.setText("Pas de morceau sélectionné !");
 			} else {
@@ -57,6 +58,7 @@ public class Choix extends Activity implements View.OnClickListener {
 		}
 		
 		else {
+			//chercher un morceau
 			Uri uri_music = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
 			Intent intent = new Intent(Intent.ACTION_PICK, uri_music);
 			
