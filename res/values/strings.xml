@@ -23,15 +23,20 @@
     <string name="choix_text">Morceau sélectionné</string>
     <string name="choix_but3">C\'est parti !</string>
     
-    <string name="grille_text">Cette fenetre doit servir a representer la grille d\'accord correspondant au morceau analyse.</string>
-    <string name="grille_play">Play</string>
+    <string name="grille_play">Jouer</string>
     
     <string name="lecture_title">Lecture en cours</string>
     <string name="lecture_name">Nom du morceau</string>
     <string name="lecture_play">Play / Pause</string>
     <string name="lecture_stop">Stop</string>
-    <string name="lecture_retour">Retour au menu principal</string>
     
     <string name="gamme_title">Choisir la gamme</string>
+    <string name="tempo">Tempo (bpm)</string>
+    <string name="chiffrage">Chiffrage</string>
+    <string name="nom_grille">Nom de la grille</string>
+    <string name="save">Sauver</string>
+    <string name="load">Charger</string>
+    <string name="accords">Accords</string>
+    <string name="accompagnement">Accompagnement</string>
     
 </resources>

@@ -55,12 +55,5 @@
         android:text="@string/actMain_bluetooth"
         android:onClick="onCheckboxClicked" />
 
-    <Button
-        android:id="@+id/button5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignRight="@+id/button2"
-        android:layout_alignTop="@+id/checkBox1"
-        android:text="@string/actMain_quit" />
 
 </RelativeLayout>

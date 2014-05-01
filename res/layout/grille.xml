@@ -4,21 +4,152 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <Button
-        android:id="@+id/button9"
-        android:layout_width="wrap_content"
+    <EditText
+        android:id="@+id/titre_grille"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:text="@string/grille_play" />
+        android:hint="@string/nom_grille" />
 
-    <TextView
-        android:id="@+id/textView1"
-        android:layout_width="wrap_content"
+    <TableLayout
+        android:id="@+id/tableLayout1"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="47dp"
-        android:text="@string/grille_text" />
+        android:layout_below="@id/titre_grille"
+        android:stretchColumns="2" >
+
+        <TableRow>
+
+            <TextView
+                android:id="@+id/chiffrage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/chiffrage"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/valeur_chiffrage"
+                android:layout_width="60dp"
+                android:layout_height="fill_parent"
+                android:inputType="number" >
+            </EditText>
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent" />
+
+            <Button
+                android:id="@+id/button_save"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:text="@string/save" />
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:id="@+id/tempo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tempo"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/valeur_tempo"
+                android:layout_width="60dp"
+                android:layout_height="fill_parent"
+                android:inputType="number" >
+            </EditText>
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent" />
+
+            <Button
+                android:id="@+id/button_load"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:text="@string/load" />
+        </TableRow>
+    </TableLayout>
+    
+    <RelativeLayout
+  		android:id="@+id/relativeLayoutAccords"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tableLayout1" >
+  		
+  		<TextView
+    		android:layout_width="wrap_content"
+    		android:layout_height="wrap_content"
+    		android:textSize="18sp"
+    		android:text="@string/accords" />
+	</RelativeLayout>
+	
+    <RelativeLayout
+  		android:id="@+id/accompagnement"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true" >
+  		
+       	<CheckBox
+	        android:id="@+id/checkBoxAccompagnement"
+        	android:layout_width="wrap_content"
+        	android:layout_height="wrap_content"
+        	android:layout_centerVertical="true"
+        	android:layout_alignParentLeft="true"
+        	android:text="@string/accompagnement"
+        	android:onClick="onCheckboxClicked" />
+  		
+    	<Button
+	        android:id="@+id/button9"
+        	android:layout_width="wrap_content"
+        	android:layout_height="wrap_content"
+        	android:layout_centerVertical="true"
+        	android:layout_alignParentRight="true"
+        	android:text="@string/grille_play" />
+    </RelativeLayout>
+    
+    <ScrollView
+		android:id="@+id/accords"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/relativeLayoutAccords"
+        android:layout_above="@id/accompagnement" >
+  		
+  		<TableLayout
+  		    android:layout_width="fill_parent"
+        	android:layout_height="fill_parent" >
+            
+  			<TableRow>
+            	<LinearLayout
+            	    android:id="@+id/accord1"
+            	    android:layout_width="fill_parent"
+        			android:layout_height="fill_parent" >
+        			
+        			<Spinner
+					    android:id="@+id/spinner_note"
+    					android:layout_width="fill_parent"
+    					android:layout_height="wrap_content"
+    					android:layout_weight="1"/>
+        			
+        			<Spinner
+					    android:id="@+id/spinner_alteration"
+    					android:layout_width="fill_parent"
+    					android:layout_height="wrap_content"
+    					android:layout_weight="1"/>
+        			
+        			<Spinner
+					    android:id="@+id/spinner_chiffrage"
+    					android:layout_width="fill_parent"
+    					android:layout_height="wrap_content"
+    					android:layout_weight="1"/>
+        		
+        		</LinearLayout>
+        	</TableRow>
+  		</TableLayout>
+	</ScrollView>
 
 </RelativeLayout>

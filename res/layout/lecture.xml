@@ -24,37 +24,35 @@
         android:text="@string/lecture_name"
         android:textSize="15sp" />
 
-    <Button
-        android:id="@+id/button1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/textView2"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="65dp"
-        android:text="@string/lecture_play" />
+    <LinearLayout
+        android:orientation="horizontal"
+ 		android:layout_width="fill_parent"
+		android:layout_height="wrap_content" 
+		android:layout_centerVertical="true" >
+  
+    	<Button
+	        android:id="@+id/button1"
+        	android:layout_width="wrap_content"
+        	android:layout_height="wrap_content"
+        	android:layout_weight="1"
+        	android:text="@string/lecture_play" />
 
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/button1"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="44dp"
-        android:text="@string/lecture_stop" />
+	    <Button
+        	android:id="@+id/button2"
+        	android:layout_width="wrap_content"
+        	android:layout_height="wrap_content"
+			android:layout_weight="1"
+        	android:text="@string/lecture_stop" />
+	</LinearLayout>
 
-    <SeekBar
-        android:id="@+id/seekBar1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_centerVertical="true" />
-
-    <Button
-        android:id="@+id/button3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/button2"
-        android:layout_toRightOf="@+id/button1"
-        android:text="@string/lecture_retour" />
+	<ProgressBar
+	    style="?android:attr/progressBarStyleHorizontal"
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_alignParentBottom="true"
+	    android:layout_centerHorizontal="true"
+	    android:layout_marginBottom="30dp"
+	    android:max="100"
+	    android:progress="50" />
 
 </RelativeLayout>

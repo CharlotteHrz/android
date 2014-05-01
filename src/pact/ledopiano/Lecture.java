@@ -37,8 +37,6 @@ public class Lecture extends Activity implements View.OnClickListener {
 		play.setOnClickListener(this);
 		stop = (Button) findViewById(R.id.button2);
 		stop.setOnClickListener(this);
-		retour = (Button) findViewById(R.id.button3);
-		retour.setOnClickListener(this);
 		
 		nom_morceau = (TextView) findViewById(R.id.textView2);
 		//Uri uri = getIntent().getParcelableExtra("morceau");
@@ -93,9 +91,6 @@ public class Lecture extends Activity implements View.OnClickListener {
 			}
 			
 			break;
-		case R.id.button3:
-			Intent intent = new Intent(this, MainActivity.class);
-			startActivity(intent);
 		}
 		
 	}
